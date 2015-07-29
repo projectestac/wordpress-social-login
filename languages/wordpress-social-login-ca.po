@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: WordPress Social Login\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-06 01:46+0100\n"
-"PO-Revision-Date: 2015-07-28 15:08+0100\n"
-"Last-Translator: nacho <nacho@test.com>\n"
+"PO-Revision-Date: 2015-07-29 10:21+0100\n"
+"Last-Translator: Mònica Grau <mgrau226@xtec.cat>\n"
 "Language-Team: WordPress Social Login <hybridauth@gmail.com>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
@@ -15,7 +15,7 @@ msgstr ""
 #: wordpress-social-login/includes/admin/components/auth-paly/index.php:53
 #: wordpress-social-login/includes/admin/components/users/wsl.components.users.profiles.php:36
 msgid "Provider user ID"
-msgstr "Proveïdors"
+msgstr "ID d'usuari del proveïdor"
 
 #: wordpress-social-login/includes/admin/components/auth-paly/index.php:54
 #: wordpress-social-login/includes/admin/components/buddypress/wsl.components.buddypress.setup.php:89
@@ -35,7 +35,7 @@ msgstr ""
 #: wordpress-social-login/includes/admin/components/buddypress/wsl.components.buddypress.setup.php:91
 #: wordpress-social-login/includes/admin/components/users/wsl.components.users.profiles.php:39
 msgid "Photo URL"
-msgstr "Foto del perfil"
+msgstr "URL de la fotografia"
 
 #: wordpress-social-login/includes/admin/components/auth-paly/index.php:57
 #: wordpress-social-login/includes/admin/components/buddypress/wsl.components.buddypress.setup.php:92
@@ -333,7 +333,7 @@ msgstr ""
 
 #: wordpress-social-login/includes/admin/components/bouncer/wsl.components.bouncer.setup.php:106
 msgid "Link user account"
-msgstr "Usuaris WSL"
+msgstr "Enllaç al compte de l'usuari"
 
 #: wordpress-social-login/includes/admin/components/bouncer/wsl.components.bouncer.setup.php:127
 msgid "Profile Completion"
@@ -363,9 +363,9 @@ msgid ""
 "avoid forms and to remove the hassle of registration"
 msgstr ""
 "Heu d'activar la <b>Compleció del perfil</b> per al <b>Correu electrònic</b> "
-"i el <b>Nom d'usuari/ària</b>,  però tingueu en compte que, la idea al "
-"darrera del <b>social login</b> és evitar formularis i eliminar tots els "
-"problemes de registre"
+"i el <b>Nom d'usuari</b>,  però tingueu en compte que, la idea al darrera "
+"del <b>social login</ b > és evitar formularis i eliminar tots els problemes "
+"de registre."
 
 #: wordpress-social-login/includes/admin/components/bouncer/wsl.components.bouncer.setup.php:143
 msgid "Require E-mail"
@@ -373,7 +373,7 @@ msgstr "Requereix correu electrònic"
 
 #: wordpress-social-login/includes/admin/components/bouncer/wsl.components.bouncer.setup.php:152
 msgid "Allow Username change"
-msgstr "Permet canviar el nom d'usuari/ària"
+msgstr "Permet canviar el nom d'usuari"
 
 #: wordpress-social-login/includes/admin/components/bouncer/wsl.components.bouncer.setup.php:162
 msgid "Hook extra registration fields"
@@ -409,7 +409,7 @@ msgid ""
 "<b>Admin Approval</b>: New users will need to be approved by an "
 "administrator before they may log in"
 msgstr ""
-"<b>Aprovació de l'administrador/a</b>: l'administrador/a haurà d'aprovar els "
+"<b>Aprovació de l'administrador</b>: l'administrador haurà d'aprovar els "
 "usuaris nous abans de poder-se autenticar"
 
 #: wordpress-social-login/includes/admin/components/bouncer/wsl.components.bouncer.setup.php:196
@@ -427,11 +427,10 @@ msgid ""
 "\"http://wordpress.org/extend/plugins/theme-my-login/\" target=\"_blank"
 "\">Theme My Login Plugin</a> to be installed"
 msgstr ""
-"Tant l'<b>Aprovació de l'administrador/a</b> com la <b>Confirmació del "
-"correu electrònic</b> requereixen l'extensió <a href=\"http://wordpress.org/"
-"extend/plugins/theme-my-login/\" target=\"_blank\">Theme My Login</a> "
-"instal·lada. No hi ha forma que el <b>WordPress Social Login</b> reinventi "
-"la roda"
+"Tant l'<b>Aprovació de l'administrador</b> com la <b>Confirmació del correu "
+"electrònic</b> requereixen l'extensió <a href=\"http://wordpress.org/extend/"
+"plugins/theme-my-login/\" target=\"_blank\">Theme My Login</a> instal·lada. "
+"No hi ha forma que el <b>WordPress Social Login</b> reinventi la roda"
 
 #: wordpress-social-login/includes/admin/components/bouncer/wsl.components.bouncer.setup.php:201
 msgid ""
@@ -455,15 +454,15 @@ msgstr "Cap"
 
 #: wordpress-social-login/includes/admin/components/bouncer/wsl.components.bouncer.setup.php:248
 msgid "Membership level"
-msgstr "Rols d'usuari/ària"
+msgstr "Rols d'usuari"
 
 #: wordpress-social-login/includes/admin/components/bouncer/wsl.components.bouncer.setup.php:252
 msgid ""
 "Here you can define the default role for new users authenticating through WSL"
 msgstr ""
 "Aquí podeu definir el rol per defecte dels usuaris nous que s'autentiquen "
-"mitjançant el WSL. Els rols d'<code>Administrador/a</code> i d'<code>Editor/"
-"a</code> no estan disponibles per raons de seguretat"
+"mitjançant el WSL. Els rols d'<code>Administrador</code> i d'<code>Editor</"
+"code> no estan disponibles per raons de seguretat"
 
 #: wordpress-social-login/includes/admin/components/bouncer/wsl.components.bouncer.setup.php:253
 msgid ""
@@ -480,10 +479,9 @@ msgid ""
 "_Role_Table\" target=\"_blank\">http://codex.wordpress.org/"
 "Roles_and_Capabilities</a>"
 msgstr ""
-"Per més informació sobre les capacitats i els rols d'usuari/ària aneu a <a "
-"href=\"http://codex.wordpress.org/Roles_and_Capabilities#Capability_vs."
-"_Role_Table\" target=\"_blank\">http://codex.wordpress.org/"
-"Roles_and_Capabilities</a>"
+"Per més informació sobre les capacitats i els rols d'usuari aneu a <a href="
+"\"http://codex.wordpress.org/Roles_and_Capabilities#Capability_vs._Role_Table"
+"\" target=\"_blank\">http://codex.wordpress.org/Roles_and_Capabilities</a>"
 
 #: wordpress-social-login/includes/admin/components/bouncer/wsl.components.bouncer.setup.php:258
 msgid ""
@@ -491,7 +489,7 @@ msgid ""
 "<b>Membership level</b> will be ignored"
 msgstr ""
 "1. Si la <b>Moderació d'usuaris</b> es defineix amb l'<code>aprovació de "
-"l'administrador/a</code> el <b>Rol d'usuari/ària</b> s'ignorarà"
+"l'administrador</code> el <b>Rol d'usuari</b> s'ignorarà"
 
 #: wordpress-social-login/includes/admin/components/bouncer/wsl.components.bouncer.setup.php:259
 msgid ""
@@ -515,7 +513,7 @@ msgstr "Segur"
 
 #: wordpress-social-login/includes/admin/components/bouncer/wsl.components.bouncer.setup.php:268
 msgid "&mdash; Wordpress User Default Role &mdash;"
-msgstr "&mdash; Rol d'usuari/ària per defecte de WordPress &mdash;"
+msgstr "&mdash; Rol d'usuari per defecte de WordPress &mdash;"
 
 #: wordpress-social-login/includes/admin/components/bouncer/wsl.components.bouncer.setup.php:269
 msgid "&mdash; No role for this site  &mdash;"
@@ -552,8 +550,8 @@ msgid ""
 "Note that filtration domains name takes priority over filtration by e-mails "
 "addresses and profile urls"
 msgstr ""
-"Tingueu en compte que el filtre per dominis té prioritat davant el filtre "
-"per adreces de correu electrònic i els URL de perfil."
+"Tingueu en compte que el filtre per dominis té prioritat davant del filtre "
+"per adreces de correu electrònic i dels URL de perfil."
 
 #: wordpress-social-login/includes/admin/components/bouncer/wsl.components.bouncer.setup.php:344
 msgid ""
@@ -605,7 +603,7 @@ msgid ""
 "profile urls"
 msgstr ""
 "Tingueu en compte que el filtre per adreces de correu electrònic té "
-"prioritat davant el filtre per URL de perfil."
+"prioritat davant del filtre per URL de perfil."
 
 #: wordpress-social-login/includes/admin/components/bouncer/wsl.components.bouncer.setup.php:389
 msgid ""
@@ -759,7 +757,7 @@ msgstr ""
 
 #: wordpress-social-login/includes/admin/components/buddypress/wsl.components.buddypress.setup.php:87
 msgid "Provider name"
-msgstr "Proveïdor"
+msgstr "Nom del proveïdor"
 
 #: wordpress-social-login/includes/admin/components/buddypress/wsl.components.buddypress.setup.php:87
 msgid "The the provider or social network name the user used to connected"
@@ -806,12 +804,12 @@ msgstr ""
 #: wordpress-social-login/includes/admin/components/buddypress/wsl.components.buddypress.setup.php:94
 #: wordpress-social-login/includes/admin/components/users/wsl.components.users.profiles.php:42
 msgid "User's first name"
-msgstr "Nom d'usuari/ària"
+msgstr "Nom de l'usuari"
 
 #: wordpress-social-login/includes/admin/components/buddypress/wsl.components.buddypress.setup.php:95
 #: wordpress-social-login/includes/admin/components/users/wsl.components.users.profiles.php:43
 msgid "User's last name"
-msgstr "Nom d'usuari/ària"
+msgstr "Cognom de l'usuari"
 
 #: wordpress-social-login/includes/admin/components/buddypress/wsl.components.buddypress.setup.php:96
 #: wordpress-social-login/includes/admin/components/users/wsl.components.users.profiles.php:44
@@ -821,7 +819,7 @@ msgstr ""
 #: wordpress-social-login/includes/admin/components/buddypress/wsl.components.buddypress.setup.php:97
 #: wordpress-social-login/includes/admin/components/users/wsl.components.users.profiles.php:45
 msgid "User's language"
-msgstr "Rols d'usuari/ària"
+msgstr "Idioma de l'usuari"
 
 #: wordpress-social-login/includes/admin/components/buddypress/wsl.components.buddypress.setup.php:98
 #: wordpress-social-login/includes/admin/components/users/wsl.components.users.profiles.php:46
@@ -868,7 +866,7 @@ msgstr ""
 #: wordpress-social-login/includes/admin/components/buddypress/wsl.components.buddypress.setup.php:105
 #: wordpress-social-login/includes/admin/components/users/wsl.components.users.profiles.php:52
 msgid "User's address"
-msgstr "Rols d'usuari/ària"
+msgstr "Adreça de l'usuari"
 
 #: wordpress-social-login/includes/admin/components/buddypress/wsl.components.buddypress.setup.php:106
 #: wordpress-social-login/includes/admin/components/users/wsl.components.users.profiles.php:53
@@ -883,16 +881,16 @@ msgstr ""
 #: wordpress-social-login/includes/admin/components/buddypress/wsl.components.buddypress.setup.php:108
 #: wordpress-social-login/includes/admin/components/users/wsl.components.users.profiles.php:55
 msgid "User's city"
-msgstr "Usuaris"
+msgstr "Ciutat de l'usuari"
 
 #: wordpress-social-login/includes/admin/components/buddypress/wsl.components.buddypress.setup.php:109
 #: wordpress-social-login/includes/admin/components/users/wsl.components.users.profiles.php:56
 msgid "User's zipcode"
-msgstr "Rols d'usuari/ària"
+msgstr "Codi postal de l'usuari"
 
 #: wordpress-social-login/includes/admin/components/buddypress/wsl.components.buddypress.setup.php:114
 msgid "Profile mappings"
-msgstr "Compleció del perfil"
+msgstr "Assignacions de perfil"
 
 #: wordpress-social-login/includes/admin/components/buddypress/wsl.components.buddypress.setup.php:118
 msgid ""
@@ -968,7 +966,7 @@ msgstr ""
 
 #: wordpress-social-login/includes/admin/components/buddypress/wsl.components.buddypress.sidebar.php:42
 msgid "BuddyPress integration"
-msgstr "Integració personalitzada"
+msgstr "Integració amb BuddyPress"
 
 #: wordpress-social-login/includes/admin/components/buddypress/wsl.components.buddypress.sidebar.php:46
 msgid ""
@@ -1037,9 +1035,9 @@ msgid "Component"
 msgstr ""
 
 #: wordpress-social-login/includes/admin/components/components/wsl.components.help.setup.php:81
-#, fuzzy, php-format
+#, php-format
 msgid "Version %s"
-msgstr "Conversions"
+msgstr "Versió %s"
 
 #: wordpress-social-login/includes/admin/components/components/wsl.components.help.setup.php:88
 #, php-format
@@ -1066,7 +1064,7 @@ msgstr "Habilita"
 
 #: wordpress-social-login/includes/admin/components/contacts/wsl.components.contacts.list.php:27
 msgid "WordPress user not found!"
-msgstr "No s'han trobat usuaris"
+msgstr "No s'ha trobat l'usuari de WordPress!"
 
 #: wordpress-social-login/includes/admin/components/contacts/wsl.components.contacts.list.php:46
 #: wordpress-social-login/includes/admin/components/users/wsl.components.users.profiles.php:64
@@ -1075,7 +1073,7 @@ msgstr ""
 
 #: wordpress-social-login/includes/admin/components/contacts/wsl.components.contacts.list.php:47
 msgid "Show user social profiles"
-msgstr "Perfil d'usuari/ària del WSL"
+msgstr "Mostra el perfil dels usuaris WSL"
 
 #: wordpress-social-login/includes/admin/components/contacts/wsl.components.contacts.list.php:55
 #, php-format
@@ -1170,7 +1168,7 @@ msgstr ""
 
 #: wordpress-social-login/includes/admin/components/contacts/wsl.components.contacts.settings.sidebar.php:42
 msgid "User contacts import"
-msgstr "Habilita la importació de contactes per"
+msgstr "Importació de contactes"
 
 #: wordpress-social-login/includes/admin/components/contacts/wsl.components.contacts.settings.sidebar.php:46
 msgid ""
@@ -1189,7 +1187,7 @@ msgstr ""
 "b> com a característica nova. Quan està activada, als usuaris autenticats "
 "amb el WordPress Social Login se'ls demanarà autorització per importar la "
 "seva llista de contactes. Tingueu en compte que algunes xarxes socials no "
-"poroporcionen certesa sobre els seus usaris com els correus electrònics de "
+"proporcionen certesa sobre els seus usuaris com els correus electrònics de "
 "contacte, fotografies o URLs de perfil."
 
 #: wordpress-social-login/includes/admin/components/contacts/wsl.components.contacts.settings.sidebar.php:58
@@ -1256,7 +1254,7 @@ msgstr ""
 
 #: wordpress-social-login/includes/admin/components/help/wsl.components.help.reference.php:47
 msgid "Authors"
-msgstr "Autor/a"
+msgstr "Autors"
 
 #: wordpress-social-login/includes/admin/components/help/wsl.components.help.reference.php:49
 msgid ""
@@ -1303,7 +1301,7 @@ msgstr ""
 
 #: wordpress-social-login/includes/admin/components/help/wsl.components.help.sidebar.php:25
 msgid "About WordPress Social Login"
-msgstr "WordPress Social Login"
+msgstr "Sobre el WordPress Social Login"
 
 #: wordpress-social-login/includes/admin/components/help/wsl.components.help.sidebar.php:29
 msgid ""
@@ -1444,7 +1442,7 @@ msgstr ""
 
 #: wordpress-social-login/includes/admin/components/login-widget/wsl.components.loginwidget.setup.php:171
 msgid "Authentication display"
-msgstr "Fluxe d'autenticació"
+msgstr "Pantalla d'autenticació"
 
 #: wordpress-social-login/includes/admin/components/login-widget/wsl.components.loginwidget.setup.php:174
 msgid "Popup"
@@ -1836,7 +1834,7 @@ msgstr ""
 
 #: wordpress-social-login/includes/admin/components/networks/wsl.components.networks.sidebar.php:43
 msgid "Welcome to WordPress Social Login"
-msgstr "WordPress Social Login"
+msgstr "Benvingut al WordPress Social Login"
 
 #: wordpress-social-login/includes/admin/components/networks/wsl.components.networks.sidebar.php:47
 msgid ""
@@ -1908,7 +1906,7 @@ msgstr "Per proveïdor"
 
 #: wordpress-social-login/includes/admin/components/networks/wsl.components.networks.sidebar.php:180
 msgid "WSL profiles"
-msgstr "Perfil d'usuari/ària del WSL"
+msgstr "Perfils d'usuari del WSL"
 
 #: wordpress-social-login/includes/admin/components/networks/wsl.components.networks.sidebar.php:191
 msgid "By gender"
@@ -1924,12 +1922,12 @@ msgstr ""
 
 #: wordpress-social-login/includes/admin/components/tools/index.php:41
 msgid "The URL nonce is not valid"
-msgstr "El nom d'usuari/ària no és vàlid!"
+msgstr "Aquest URL no és vàlid"
 
 #: wordpress-social-login/includes/admin/components/tools/wsl.components.tools.actions.job.php:24
 #: wordpress-social-login/includes/admin/components/tools/wsl.components.tools.actions.php:64
 msgid "WordPress Social Login Diagnostics"
-msgstr "WordPress Social Login"
+msgstr "Diagnòstic del WordPress Social Login"
 
 #: wordpress-social-login/includes/admin/components/tools/wsl.components.tools.actions.job.php:683
 msgid ""
@@ -1956,7 +1954,7 @@ msgstr "Informació del sistema"
 
 #: wordpress-social-login/includes/admin/components/tools/wsl.components.tools.actions.job.php:863
 msgid "Repair Wordpress Social Login tables"
-msgstr "WordPress Social Login"
+msgstr "Taules de reparació del WordPress Social Login"
 
 #: wordpress-social-login/includes/admin/components/tools/wsl.components.tools.actions.job.php:867
 msgid ""
@@ -1986,7 +1984,7 @@ msgstr ""
 
 #: wordpress-social-login/includes/admin/components/tools/wsl.components.tools.actions.job.php:985
 msgid "Thank you for using Wordpress Social Login"
-msgstr "WordPress Social Login"
+msgstr "Gràcies per fer servir el WordPress Social Login"
 
 #: wordpress-social-login/includes/admin/components/tools/wsl.components.tools.actions.job.php:988
 msgid "Good bye"
@@ -2011,7 +2009,7 @@ msgstr ""
 
 #: wordpress-social-login/includes/admin/components/tools/wsl.components.tools.actions.php:71
 msgid "Run WordPress Social Login Diagnostics"
-msgstr "WordPress Social Login"
+msgstr "Executa el diagnòstic del WordPress Social Login"
 
 #: wordpress-social-login/includes/admin/components/tools/wsl.components.tools.actions.php:88
 msgid ""
@@ -2022,7 +2020,7 @@ msgstr ""
 
 #: wordpress-social-login/includes/admin/components/tools/wsl.components.tools.actions.php:91
 msgid "Display your system information"
-msgstr "Informació del sistema"
+msgstr "Mostra la vostra informació del sistema"
 
 #: wordpress-social-login/includes/admin/components/tools/wsl.components.tools.actions.php:105
 msgid "Repair WSL tables"
@@ -2036,7 +2034,7 @@ msgstr ""
 
 #: wordpress-social-login/includes/admin/components/tools/wsl.components.tools.actions.php:112
 msgid "Repair WordPress Social Login databases tables"
-msgstr "Fes el WordPress Social Login compatible amb el BuddyPress"
+msgstr "Repara les bases de dades del WordPress Social Login"
 
 #: wordpress-social-login/includes/admin/components/tools/wsl.components.tools.actions.php:127
 msgid "Debug mode"
@@ -2140,7 +2138,7 @@ msgstr ""
 
 #: wordpress-social-login/includes/admin/components/tools/wsl.components.tools.sidebar.php:42
 msgid "WordPress Social Login Tools"
-msgstr "WordPress Social Login"
+msgstr "Eines del WordPress Social Login"
 
 #: wordpress-social-login/includes/admin/components/tools/wsl.components.tools.sidebar.php:46
 msgid ""
@@ -2166,7 +2164,7 @@ msgstr "Mostra tots els usuaris"
 #: wordpress-social-login/includes/widgets/wsl.users.gateway.php:533
 #: wordpress-social-login/includes/widgets/wsl.users.gateway.php:571
 msgid "Username"
-msgstr "Nom d'usuari/ària"
+msgstr "Nom d'usuari"
 
 #: wordpress-social-login/includes/admin/components/users/wsl.components.users.list.php:51
 msgid ""
@@ -2205,7 +2203,7 @@ msgstr "Contactes"
 #: wordpress-social-login/includes/admin/components/users/wsl.components.users.list.php:72
 #: wordpress-social-login/includes/admin/components/users/wsl.components.users.list.php:83
 msgid "User ID"
-msgstr "Usuari/ària"
+msgstr "ID d'usuari"
 
 #: wordpress-social-login/includes/admin/components/users/wsl.components.users.list.php:94
 msgid "No users found"
@@ -2213,7 +2211,7 @@ msgstr "No s'han trobat usuaris"
 
 #: wordpress-social-login/includes/admin/components/users/wsl.components.users.list.php:139
 msgid "Profiles"
-msgstr "Perfil"
+msgstr "Perfils"
 
 #: wordpress-social-login/includes/admin/components/users/wsl.components.users.list.php:152
 msgid "Delete"
@@ -2247,7 +2245,7 @@ msgstr ""
 
 #: wordpress-social-login/includes/admin/components/users/wsl.components.users.profiles.php:65
 msgid "Show user contacts list"
-msgstr "Usuaris WSL"
+msgstr "Mostra la llista de contactes de l'usuari"
 
 #: wordpress-social-login/includes/admin/components/users/wsl.components.users.profiles.php:86
 #, php-format
@@ -2268,7 +2266,7 @@ msgstr ""
 
 #: wordpress-social-login/includes/admin/components/users/wsl.components.users.profiles.php:113
 msgid "User profile"
-msgstr "Perfil d'usuari/ària"
+msgstr "Perfil d'usuari"
 
 #: wordpress-social-login/includes/admin/components/users/wsl.components.users.profiles.php:113
 #, php-format
@@ -2281,7 +2279,7 @@ msgstr ""
 
 #: wordpress-social-login/includes/admin/components/watchdog/index.php:42
 msgid "Authentication log files viewer"
-msgstr "Fluxe d'autenticació"
+msgstr "Visor de fitxers del log d'autenticaicó"
 
 #: wordpress-social-login/includes/admin/components/watchdog/index.php:46
 msgid "Select a log file to display"
@@ -2424,11 +2422,11 @@ msgstr ""
 
 #: wordpress-social-login/includes/admin/wsl.admin.ui.php:386
 msgid "Customize WSL Widgets"
-msgstr "Giny WSL"
+msgstr "Personalitza el giny WSL"
 
 #: wordpress-social-login/includes/admin/wsl.admin.ui.php:387
 msgid "Manage users and contacts"
-msgstr "Usuaris WSL"
+msgstr "Gestiona usuaris i contactes"
 
 #: wordpress-social-login/includes/admin/wsl.admin.ui.php:394
 #, php-format
@@ -2473,7 +2471,7 @@ msgstr ""
 
 #: wordpress-social-login/includes/admin/wsl.admin.ui.php:434
 msgid "Help us translate WordPress Social Login into your language"
-msgstr "Ajuda'ns a traduir aquesta pàgina"
+msgstr "Ajuda'ns a traduir el WordPress Social Login al teu idioma"
 
 #: wordpress-social-login/includes/services/wsl.authentication.php:101
 #, php-format
@@ -2535,15 +2533,15 @@ msgstr ""
 
 #: wordpress-social-login/includes/services/wsl.authentication.php:508
 msgid "Registration is now closed."
-msgstr "el registre està tancat!"
+msgstr "El registre està tancat!"
 
 #: wordpress-social-login/includes/services/wsl.authentication.php:719
 msgid "An error occurred while creating a new user: "
-msgstr "S'ha produit un error creant un nou usuari/ària!"
+msgstr "S'ha produït un error creant un usuari nou:"
 
 #: wordpress-social-login/includes/services/wsl.authentication.php:722
 msgid "An error occurred while creating a new user!"
-msgstr "S'ha produit un error creant un nou usuari/ària!"
+msgstr "S'ha produït un error creant un usuari nou!"
 
 #: wordpress-social-login/includes/services/wsl.authentication.php:967
 #, php-format
@@ -2562,7 +2560,7 @@ msgstr ""
 
 #: wordpress-social-login/includes/services/wsl.authentication.php:1078
 msgid "WordPress Social Login is not properly configured."
-msgstr "Nucli del WordPress Social Login"
+msgstr "El WordPress Social no s'ha configurat correctament."
 
 #: wordpress-social-login/includes/services/wsl.authentication.php:1081
 #, php-format
@@ -2729,11 +2727,11 @@ msgstr "Aquest correu electrònic ja està registrat!"
 #: wordpress-social-login/includes/widgets/wsl.complete.registration.php:90
 #: wordpress-social-login/includes/widgets/wsl.complete.registration.php:97
 msgid "Username is not valid!"
-msgstr "El nom d'usuari/ària no és vàlid!"
+msgstr "El nom d'usuari no és vàlid!"
 
 #: wordpress-social-login/includes/widgets/wsl.complete.registration.php:104
 msgid "That Username is already registered!"
-msgstr "Aquest nom d'usuari/ària ja està registrat!"
+msgstr "Aquest nom d'usuari ja està registrat!"
 
 #: wordpress-social-login/includes/widgets/wsl.complete.registration.php:291
 #, php-format

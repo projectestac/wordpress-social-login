@@ -59,7 +59,10 @@ $WORDPRESS_SOCIAL_LOGIN_COMPONENTS = ARRAY(
 /** list of WSL admin tabs */
 $WORDPRESS_SOCIAL_LOGIN_ADMIN_TABS = ARRAY(  
 	"networks"     => array( "label" => _wsl__("Networks"      , 'wordpress-social-login') , "visible" => true  , "component" => "networks"       , "default" => true ),
-	"login-widget" => array( "label" => _wsl__("Widget"        , 'wordpress-social-login') , "visible" => true  , "component" => "login-widget"   ),
+	// XTEC ************ ELIMINAT- Remove tab
+	//2015.07.29 @nacho
+	//"login-widget" => array( "label" => _wsl__("Widget"        , 'wordpress-social-login') , "visible" => true  , "component" => "login-widget"   ),
+	//************ FI
 	"bouncer"      => array( "label" => _wsl__("Bouncer"       , 'wordpress-social-login') , "visible" => true  , "component" => "bouncer"        ),
 
 	"users"        => array( "label" => _wsl__("Users"         , 'wordpress-social-login') , "visible" => true  , "component" => "users"         ),

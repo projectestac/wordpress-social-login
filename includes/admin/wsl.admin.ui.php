@@ -186,11 +186,28 @@ function wsl_admin_ui_header( $wslp = null )
 		}
 	?>
 
+	<!-- XTEC ************ AFEGIT - Remove banner -->
+	<!-- 2015.07.29 @nacho -->
+	<?php
+		if (!is_xtec_super_admin()){
+			echo '<!--';
+		}
+	
+	//************ FI (The following close PHP tag belongs to the patch) ?>
+		
 	<div class="alignright">
 		<a style="font-size: 0.9em; text-decoration: none;" target="_blank" href="http://miled.github.io/wordpress-social-login/documentation.html"><?php _wsl_e('Docs', 'wordpress-social-login') ?></a> -
 		<a style="font-size: 0.9em; text-decoration: none;" target="_blank" href="http://miled.github.io/wordpress-social-login/support.html"><?php _wsl_e('Support', 'wordpress-social-login') ?></a> -
 		<a style="font-size: 0.9em; text-decoration: none;" target="_blank" href="https://github.com/miled/wordpress-social-login"><?php _wsl_e('Github', 'wordpress-social-login') ?></a>
 	</div>
+	<?php 
+	// XTEC ************ AFEGIT - Remove banner
+	// 2015.07.29 @nacho
+	if (!is_xtec_super_admin()){
+		echo '-->';
+	}
+	//************ FI
+	?>
 
 	<h1 <?php if( is_rtl() ) echo 'style="margin: 20px 0;"'; ?>>
 		<?php _wsl_e( 'WordPress Social Login', 'wordpress-social-login' ) ?>
@@ -379,13 +396,12 @@ function wsl_admin_welcome_panel()
 	//> wsl-w-panel is shamelessly borrowed and modified from wordpress welcome-panel
 -->
 
-<!-- XTEC ************ AFEGIT - Remove Welcome banner -->
-<!-- 2014.11.14 @aginard -->
+<!-- XTEC ************ AFEGIT - Remove banner -->
+<!-- 2015.07.29 @nacho -->
 <?php
-    global $isAgora, $isBlocs;
-    if (($isAgora && !is_xtecadmin()) || $isBlocs) {
-        echo '<!--';
-    }
+	if (!is_xtec_super_admin()){
+		echo '<!--';
+	}
 //************ FI (The following close PHP tag belongs to the patch) ?>
 
 <div id="wsl-w-panel">
@@ -440,13 +456,12 @@ function wsl_admin_welcome_panel()
 </div>
 <?php
 
-// XTEC ************ AFEGIT - Remove Welcome banner
-// 2014.11.14 @aginard
-    if (($isAgora && !is_xtecadmin()) || $isBlocs) {
-        echo '-->';
-    }
+// XTEC ************ AFEGIT - Remove banner
+// 2015.07.29 @nacho
+	if (!is_xtec_super_admin()){
+		echo '-->';
+	}
 //************ FI
-
 }
 
 // --------------------------------------------------------------------

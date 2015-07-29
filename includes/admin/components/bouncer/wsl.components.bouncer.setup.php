@@ -122,6 +122,15 @@ function wsl_component_bouncer_setup_accounts_linking()
 function wsl_component_bouncer_setup_profile_completion()
 {
 ?>
+<!-- XTEC ************ AFEGIT - Remove banner -->
+<!-- 2015.07.29 @nacho -->
+<?php
+	if (!is_xtec_super_admin()){
+		echo '<!--';
+	}
+
+//************ FI (The following close PHP tag belongs to the patch) ?>
+
 <div class="stuffbox">
 	<h3>
 		<label><?php _wsl_e("Profile Completion", 'wordpress-social-login') ?></label>
@@ -130,11 +139,22 @@ function wsl_component_bouncer_setup_profile_completion()
 		<p>
 			<?php _wsl_e("Select required fields. If a social network doesn't return them, Bouncer will then ask your visitors to fill additional form to provide them when registering.", 'wordpress-social-login') ?> 
 		</p>
+		<?php
+			// XTEC ************ AFEGIT - close comment -->
+			// 2015.07.29 @nacho -->
+			echo '-->';
+		?>
 		<!-- planned for 2.3
 		<p>
 			<?php _wsl_e("When <b>Hook extra registration fields</b> is set to Yes, Bounce will also add any extra registration fields from other plugins (eg: Newsletter, Register Plus Redux) .", 'wordpress-social-login') ?> 
 		</p>
 		-->
+		
+		<?php 
+			// XTEC ************ AFEGIT - open comment -->
+			// 2015.07.29 @nacho -->
+			echo '<!--';
+		?>
 		<p class="description">
 			<?php _wsl_e("You may activate <b>Profile Completion</b> for both <b>E-mail</b> and <b>Username</b>, but keep in mind, the idea behind <b>social login</b> is to avoid forms and to remove the hassle of registration", 'wordpress-social-login') ?>.
 		</p>
@@ -157,6 +177,11 @@ function wsl_component_bouncer_setup_profile_completion()
 				</select>
 			</td>
 		  </tr>
+		  <?php 
+			  // XTEC ************ AFEGIT - close comment -->
+			  // 2015.07.29 @nacho -->
+			echo '-->';
+		?>
 		<!-- planned for 2.3
 		  <tr>
 			<td width="200" align="right"><strong><?php _wsl_e("Hook extra registration fields", 'wordpress-social-login') ?> :</strong></td>
@@ -168,10 +193,21 @@ function wsl_component_bouncer_setup_profile_completion()
 			</td>
 		  </tr>
 		-->
+		<?php 
+			// XTEC ************ AFEGIT - open comment -->
+			// 2015.07.29 @nacho -->
+			echo '<!--';
+		?>
 		</table>  
 	</div>
 </div>
 <?php
+// XTEC ************ AFEGIT - Remove banner
+// 2015.07.29 @nacho
+if (!is_xtec_super_admin()){
+	echo '-->';
+}
+//************ FI
 }
 
 // --------------------------------------------------------------------	
@@ -192,6 +228,16 @@ function wsl_component_bouncer_setup_user_moderation()
 			<li><?php _wsl_e('<b>E-mail Confirmation</b>: New users will need to be confirm their e-mail address before they may log in', 'wordpress-social-login') ?>.</li>
 			<li><?php _wsl_e('<b>Admin Approval</b>: New users will need to be approved by an administrator before they may log in', 'wordpress-social-login') ?>.</li>
 		</ul> 
+		
+		<!-- XTEC ************ AFEGIT - Remove banner -->
+		<!-- 2015.07.29 @nacho -->
+		<?php
+			if (!is_xtec_super_admin()){
+				echo '<!--';
+			}
+		
+		//************ FI (The following close PHP tag belongs to the patch) ?>
+		
 		<p>
 			<b><?php _wsl_e('Notes', 'wordpress-social-login') ?>:</b>
 		</p> 
@@ -203,6 +249,14 @@ function wsl_component_bouncer_setup_user_moderation()
 			3. <?php _wsl_e('In order for this to work correctly, you will need to go to <b>Theme My Login</b> settings, then enable <b>User Moderation</b> and set <b>Moderation Type</b> to the same thing as the box bellow', 'wordpress-social-login') ?>.
 		</p> 
 		
+		<?php 
+		// XTEC ************ AFEGIT - Remove banner
+		// 2015.07.29 @nacho
+		if (!is_xtec_super_admin()){
+			echo '-->';
+		}
+		?>
+		<!--  ************ FI -->
 		
 		<table width="100%" border="0" cellpadding="5" cellspacing="2" style="border-top:1px solid #ccc;">  
 		  <tr>
@@ -248,6 +302,14 @@ function wsl_component_bouncer_setup_membership_level()
 		<label><?php _wsl_e("Membership level", 'wordpress-social-login') ?></label>
 	</h3>
 	<div class="inside"> 
+		<!-- XTEC ************ AFEGIT - Remove banner -->
+		<!-- 2015.07.29 @nacho -->
+		<?php
+			if (!is_xtec_super_admin()){
+				echo '<!--';
+			}
+		
+		//************ FI (The following close PHP tag belongs to the patch) ?>
 		<p>
 			<?php _wsl_e("Here you can define the default role for new users authenticating through WSL", 'wordpress-social-login') ?>.
 			<?php _wsl_e("Please, be extra carefull with this option, you may be automatically giving someone elevated roles and capabilities", 'wordpress-social-login') ?>.
@@ -259,6 +321,15 @@ function wsl_component_bouncer_setup_membership_level()
 			<br /><?php _wsl_e('2. To assign the same default role as in your website <b>General Settings</b>, set this field to <code>Wordpress User Default Role</code>', 'wordpress-social-login') ?>.
 			<br /><?php _wsl_e('3. If you are not sure, simply leave this field to <code>No role for this site</code>', 'wordpress-social-login') ?>.
 		</p> 
+		<?php 
+		// XTEC ************ AFEGIT - Remove banner
+		// 2015.07.29 @nacho
+		if (!is_xtec_super_admin()){
+			echo '-->';
+		}
+		?>
+		<!--  ************ FI -->
+		
 		<table width="100%" border="0" cellpadding="5" cellspacing="2" style="border-top:1px solid #ccc;">
 		  <tr>
 			<td width="200" align="right" nowrap><strong><?php _wsl_e("New WSL users default role", 'wordpress-social-login') ?> :</strong></td>
@@ -330,17 +401,16 @@ function wsl_component_bouncer_setup_membership_level()
 
 // --------------------------------------------------------------------	
 
-// XTEC ************ AFEGIT - Hide "Filters by profile urls"
-// 2014.11.14 @aginard
-    global $isAgora;
-    if ($isAgora && !is_xtecadmin()) {
-        echo '<!--';
-    }
-//************ FI
-
 function wsl_component_bouncer_setup_filters_domains()
 {
+// XTEC ************ AFEGIT - Remove banner
+// 2015.07.29 @nacho
+if (!is_xtec_super_admin()){
+	echo '<!--';
+}
+//************ FI
 ?>
+
 <div class="stuffbox">
 	<h3>
 		<label><?php _wsl_e("Filters by emails domains name", 'wordpress-social-login') ?></label>
@@ -379,19 +449,23 @@ function wsl_component_bouncer_setup_filters_domains()
 	</div>
 </div>
 <?php
+// XTEC ************ AFEGIT - Remove banner
+// 2015.07.29 @nacho
+if (!is_xtec_super_admin()){
+	echo '-->';
 }
-
-// --------------------------------------------------------------------	
-
-// XTEC ************ AFEGIT -  Hide "Filters by profile urls"
-// 2014.11.14 @aginard
-    if ($isAgora && !is_xtecadmin()) {
-        echo '-->';
-    }
 //************ FI
+}
 
 function wsl_component_bouncer_setup_filters_mails()
 {
+// XTEC ************ AFEGIT - Remove banner
+// 2015.07.29 @nacho
+if (!is_xtec_super_admin()){
+	echo '<!--';
+}
+//************ FI
+	
 ?>
 <div class="stuffbox">
 	<h3>
@@ -431,12 +505,24 @@ function wsl_component_bouncer_setup_filters_mails()
 	</div>
 </div>
 <?php
+// XTEC ************ AFEGIT - Remove banner
+// 2015.07.29 @nacho
+if (!is_xtec_super_admin()){
+	echo '-->';
+}
+//************ FI
 }
 
 // --------------------------------------------------------------------	
 
 function wsl_component_bouncer_setup_filters_urls()
 {
+// XTEC ************ AFEGIT - Remove banner
+// 2015.07.29 @nacho
+if (!is_xtec_super_admin()){
+	echo '<!--';
+}
+//************ FI
 ?>
 <div class="stuffbox">
 	<h3>
@@ -476,6 +562,12 @@ function wsl_component_bouncer_setup_filters_urls()
 	</div>
 </div>
 <?php
+// XTEC ************ AFEGIT - Remove banner
+// 2015.07.29 @nacho
+if (!is_xtec_super_admin()){
+	echo '-->';
+}
+//************ FI
 }
 
 // --------------------------------------------------------------------	

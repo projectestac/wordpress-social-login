@@ -37,6 +37,14 @@ function wsl_component_bouncer_sidebar()
 function wsl_component_bouncer_sidebar_what_is_this()
 {
 ?>
+<!-- XTEC ************ AFEGIT - Remove banner -->
+<!-- 2015.07.29 @nacho -->
+<?php
+	if (!is_xtec_super_admin()){
+		echo '<!--';
+	}
+
+//************ FI (The following close PHP tag belongs to the patch) ?>
 <div class="postbox">
 	<div class="inside">
 		<h3><?php _wsl_e("What's This?", 'wordpress-social-login') ?></h3>
@@ -64,6 +72,12 @@ function wsl_component_bouncer_sidebar_what_is_this()
 	</div> 
 </div> 
 <?php
+// XTEC ************ AFEGIT - Remove banner
+// 2015.07.29 @nacho
+if (!is_xtec_super_admin()){
+	echo '-->';
+}
+//************ FI
 }
 
 // --------------------------------------------------------------------	

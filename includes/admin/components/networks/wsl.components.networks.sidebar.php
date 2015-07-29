@@ -35,9 +35,19 @@ function wsl_component_networks_sidebar()
 
 // --------------------------------------------------------------------	
 
+
 function wsl_component_networks_sidebar_what_is_this()
 {
 ?>
+<!-- XTEC ************ AFEGIT - Remove banner -->
+<!-- 2015.07.29 @nacho -->
+<?php
+	if (!is_xtec_super_admin()){
+		echo '<!--';
+	}
+
+//************ FI (The following close PHP tag belongs to the patch) ?>
+
 <div class="postbox">
 	<div class="inside">
 		<h3><?php _wsl_e("Welcome to WordPress Social Login", 'wordpress-social-login') ?></h3>
@@ -59,6 +69,12 @@ function wsl_component_networks_sidebar_what_is_this()
 	</div> 
 </div> 
 <?php
+// XTEC ************ AFEGIT - Remove banner
+// 2015.07.29 @nacho
+if (!is_xtec_super_admin()){
+	echo '-->';
+}
+//************ FI
 }
 
 add_action( 'wsl_component_networks_sidebar_what_is_this', 'wsl_component_networks_sidebar_what_is_this' );
@@ -67,10 +83,20 @@ add_action( 'wsl_component_networks_sidebar_what_is_this', 'wsl_component_networ
 
 function wsl_component_networks_sidebar_add_more_idps()
 {
+
 	GLOBAL $WORDPRESS_SOCIAL_LOGIN_PROVIDERS_CONFIG;
 
 	$assets_base_url = WORDPRESS_SOCIAL_LOGIN_PLUGIN_URL . '/assets/img/32x32/icondock/';
 ?>
+<!-- XTEC ************ AFEGIT - Remove banner -->
+<!-- 2015.07.29 @nacho -->
+<?php
+	if (!is_xtec_super_admin()){
+		echo '<!--';
+	}
+
+//************ FI (The following close PHP tag belongs to the patch) ?>
+
 <div class="postbox">
 	<div class="inside">
 		<h3><?php _wsl_e("Add more providers", 'wordpress-social-login') ?></h3>
@@ -114,6 +140,12 @@ function wsl_component_networks_sidebar_add_more_idps()
 	</div> 
 </div> 
 <?php
+// XTEC ************ AFEGIT - Remove banner
+// 2015.07.29 @nacho
+if (!is_xtec_super_admin()){
+	echo '-->';
+}
+//************ FI
 }
 
 add_action( 'wsl_component_networks_sidebar_add_more_idps', 'wsl_component_networks_sidebar_add_more_idps' );
@@ -126,6 +158,14 @@ function wsl_component_networks_sidebar_basic_insights()
 
 	$assets_base_url = WORDPRESS_SOCIAL_LOGIN_PLUGIN_URL . '/assets/img/32x32/icondock/';
 ?>
+<!-- XTEC ************ AFEGIT - Remove banner -->
+<!-- 2015.07.29 @nacho -->
+<?php
+	if (!is_xtec_super_admin()){
+		echo '<!--';
+	}
+
+//************ FI (The following close PHP tag belongs to the patch) ?>
 <div class="postbox">
 	<div class="inside">
 		<h3><?php _wsl_e("Insights", 'wordpress-social-login') ?></h3>
@@ -244,6 +284,12 @@ function wsl_component_networks_sidebar_basic_insights()
 	</div> 
 </div> 
 <?php
+// XTEC ************ AFEGIT - Remove banner
+// 2015.07.29 @nacho
+if (!is_xtec_super_admin()){
+	echo '-->';
+}
+//************ FI
 }
 
 add_action( 'wsl_component_networks_sidebar_basic_insights', 'wsl_component_networks_sidebar_basic_insights' );
