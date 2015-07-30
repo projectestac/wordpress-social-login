@@ -124,11 +124,12 @@ function wsl_admin_ui_header( $wslp = null )
 	GLOBAL $WORDPRESS_SOCIAL_LOGIN_VERSION;
 	GLOBAL $WORDPRESS_SOCIAL_LOGIN_ADMIN_TABS;
 
-	// XTEC ************ AFEGIT- Remove tab if user is not superadmin
-	//2015.07.30 @nacho
+	// XTEC ************ AFEGIT- Hide admin tabs if user is not superadmin
+	// 2015.07.30 @nacho
 	if (!is_xtec_super_admin()){
 		foreach( $WORDPRESS_SOCIAL_LOGIN_ADMIN_TABS as $name => $settings ) {
-			if($settings["label"] == 'Widget'){
+			if ( ($settings["label"] == 'Widget') || ($settings["label"] == 'Help')
+				|| ($settings["label"] == 'Tools') || ($settings["label"] == 'Components') ){
 				unset($WORDPRESS_SOCIAL_LOGIN_ADMIN_TABS[$name]);
 			}
 		}
