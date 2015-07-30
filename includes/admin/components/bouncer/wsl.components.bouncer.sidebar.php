@@ -11,7 +11,7 @@
 */
 
 // Exit if accessed directly
-if ( !defined( 'ABSPATH' ) ) exit; 
+if ( !defined( 'ABSPATH' ) ) exit;
 
 // --------------------------------------------------------------------
 
@@ -28,25 +28,24 @@ function wsl_component_bouncer_sidebar()
 		add_action( 'wsl_component_bouncer_sidebar_sidebar_sections', $action );
 	}
 
-	// HOOKABLE: 
+	// HOOKABLE:
 	do_action( 'wsl_component_bouncer_sidebar_sidebar_sections' );
 }
 
-// --------------------------------------------------------------------	
+// --------------------------------------------------------------------
 
 function wsl_component_bouncer_sidebar_what_is_this()
 {
 ?>
-<!-- XTEC ************ AFEGIT - Remove banner -->
-<!-- 2015.07.29 @nacho -->
-<?php
-	if (!is_xtec_super_admin()){
-		echo '<!--';
-	}
-
-//************ FI (The following close PHP tag belongs to the patch) ?>
 <div class="postbox">
 	<div class="inside">
+		<?php
+		// XTEC ************ AFEGIT - Hide Comment
+		// 2015.07.29 @nacho
+		if (!is_xtec_super_admin()){
+			echo '<!--';
+		}
+		//************ FI ?>
 		<h3><?php _wsl_e("What's This?", 'wordpress-social-login') ?></h3>
 
 		<div style="padding:0 20px;">
@@ -59,25 +58,28 @@ function wsl_component_bouncer_sidebar_what_is_this()
 			<p style="margin:10px;font-size: 13px;">
 			<?php _wsl_e("This feature is most suited for small businesses and folks running a closed-door blog between friends or coworkers.", 'wordpress-social-login') ?>
 			</p>
+			<?php
+			// XTEC ************ AFEGIT - Close hide Comment-->
+			// 2015.07.29 @nacho
+
+			if (!is_xtec_super_admin()){
+				echo '-->';
+			}
+			//************ FI ?>
 
 			<h4 style="cursor: default;border-bottom:1px solid #ccc;"><?php _wsl_e("IMPORTANT!", 'wordpress-social-login') ?></h4>
 
+
 			<p style="margin:10px;">
 				<?php _wsl_e("All the settings on this page without exception are only valid for users authenticating through <b>WordPress Social Login Widget", 'wordpress-social-login') ?></b>.
-			</p> 
+			</p>
 			<p style="margin:10px;">
 			<?php _wsl_e("Users authenticating through the regulars Wordpress Login and Register pages with their usernames and passwords WILL NOT be affected.", 'wordpress-social-login') ?>
 			</p>
-		</div> 
-	</div> 
-</div> 
+		</div>
+	</div>
+</div>
 <?php
-// XTEC ************ AFEGIT - Remove banner
-// 2015.07.29 @nacho
-if (!is_xtec_super_admin()){
-	echo '-->';
-}
-//************ FI
 }
 
-// --------------------------------------------------------------------	
+// --------------------------------------------------------------------
