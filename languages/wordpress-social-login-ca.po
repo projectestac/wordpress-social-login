@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: WordPress Social Login\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-06 01:46+0100\n"
-"PO-Revision-Date: 2015-07-29 10:21+0100\n"
+"PO-Revision-Date: 2015-07-30 15:38+0100\n"
 "Last-Translator: Mònica Grau <mgrau226@xtec.cat>\n"
 "Language-Team: WordPress Social Login <hybridauth@gmail.com>\n"
 "Language: ca\n"
@@ -529,6 +529,8 @@ msgid ""
 "<b>New WSL users default role</b> is currently set to <b>&ldquo;%s&rdquo;</"
 "b>, which gives these capabilities: "
 msgstr ""
+"<b>El rol per defecte dels usuaris nous del WSL</b> és <b>&ldquo;%s&rdquo;</"
+"b>, això dóna les capacitats següents: "
 
 #: wordpress-social-login/includes/admin/components/bouncer/wsl.components.bouncer.setup.php:318
 #, php-format
@@ -536,6 +538,8 @@ msgid ""
 "<b>New WSL users default role</b> is currently set to <b>&ldquo;%s&rdquo;</"
 "b>, which gives NO capabilities"
 msgstr ""
+"<b>El rol per defecte dels usuaris nous del WSL</b> és <b>&ldquo;%s&rdquo;</"
+"b>, això no dóna cap capacitat"
 
 #: wordpress-social-login/includes/admin/components/bouncer/wsl.components.bouncer.setup.php:338
 msgid "Filters by emails domains name"
