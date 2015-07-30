@@ -124,6 +124,17 @@ function wsl_admin_ui_header( $wslp = null )
 	GLOBAL $WORDPRESS_SOCIAL_LOGIN_VERSION;
 	GLOBAL $WORDPRESS_SOCIAL_LOGIN_ADMIN_TABS;
 
+	// XTEC ************ AFEGIT- Remove tab if user is not superadmin
+	//2015.07.30 @nacho
+	if (!is_xtec_super_admin()){
+		foreach( $WORDPRESS_SOCIAL_LOGIN_ADMIN_TABS as $name => $settings ) {
+			if($settings["label"] == 'Widget'){
+				unset($WORDPRESS_SOCIAL_LOGIN_ADMIN_TABS[$name]);
+			}
+		}
+	}
+	//************ FI
+
 ?>
 <a name="wsltop"></a>
 <div class="wsl-container">
@@ -192,15 +203,15 @@ function wsl_admin_ui_header( $wslp = null )
 		if (!is_xtec_super_admin()){
 			echo '<!--';
 		}
-	
+
 	//************ FI (The following close PHP tag belongs to the patch) ?>
-		
+
 	<div class="alignright">
 		<a style="font-size: 0.9em; text-decoration: none;" target="_blank" href="http://miled.github.io/wordpress-social-login/documentation.html"><?php _wsl_e('Docs', 'wordpress-social-login') ?></a> -
 		<a style="font-size: 0.9em; text-decoration: none;" target="_blank" href="http://miled.github.io/wordpress-social-login/support.html"><?php _wsl_e('Support', 'wordpress-social-login') ?></a> -
 		<a style="font-size: 0.9em; text-decoration: none;" target="_blank" href="https://github.com/miled/wordpress-social-login"><?php _wsl_e('Github', 'wordpress-social-login') ?></a>
 	</div>
-	<?php 
+	<?php
 	// XTEC ************ AFEGIT - Remove banner
 	// 2015.07.29 @nacho
 	if (!is_xtec_super_admin()){
