@@ -198,7 +198,7 @@ function wsl_admin_ui_header( $wslp = null )
 		}
 	?>
 
-	<!-- XTEC ************ AFEGIT - Remove banner -->
+	<!-- XTEC ************ AFEGIT - hide text -->
 	<!-- 2015.07.29 @nacho -->
 	<?php
 		if (!is_xtec_super_admin()){
@@ -213,7 +213,7 @@ function wsl_admin_ui_header( $wslp = null )
 		<a style="font-size: 0.9em; text-decoration: none;" target="_blank" href="https://github.com/miled/wordpress-social-login"><?php _wsl_e('Github', 'wordpress-social-login') ?></a>
 	</div>
 	<?php
-	// XTEC ************ AFEGIT - Remove banner
+	// XTEC ************ AFEGIT - Close hide text
 	// 2015.07.29 @nacho
 	if (!is_xtec_super_admin()){
 		echo '-->';
@@ -408,7 +408,7 @@ function wsl_admin_welcome_panel()
 	//> wsl-w-panel is shamelessly borrowed and modified from wordpress welcome-panel
 -->
 
-<!-- XTEC ************ AFEGIT - Remove banner -->
+<!-- XTEC ************ AFEGIT - hide text -->
 <!-- 2015.07.29 @nacho -->
 <?php
 	if (!is_xtec_super_admin()){
@@ -468,7 +468,7 @@ function wsl_admin_welcome_panel()
 </div>
 <?php
 
-// XTEC ************ AFEGIT - Remove banner
+// XTEC ************ AFEGIT - Close hide text
 // 2015.07.29 @nacho
 	if (!is_xtec_super_admin()){
 		echo '-->';
