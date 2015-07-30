@@ -175,7 +175,12 @@ function wsl_component_bouncer_setup_profile_completion()
 			</td>
 		  </tr>
 		  <tr>
-			<td width="200" align="right"><strong><?php _wsl_e("Allow Username change", 'wordpress-social-login') ?> :</strong></td>
+		  	<!-- XTEC ************ MODIFICAT - changed the size of the table
+			2015.07.30 @nacho -->
+			<td width="201" align="right"><strong><?php _wsl_e("Allow Username change", 'wordpress-social-login') ?> :</strong></td>
+			<!-- ************ ORIGINAL
+			<td width="201" align="right"><strong><?php _wsl_e("Allow Username change", 'wordpress-social-login') ?> :</strong></td>
+			************ FI-->
 			<td>
 				<select name="wsl_settings_bouncer_profile_completion_change_username">
 					<option <?php if( get_option( 'wsl_settings_bouncer_profile_completion_change_username' ) == 1 ) echo "selected"; ?> value="1"><?php _wsl_e("Yes", 'wordpress-social-login') ?></option>
