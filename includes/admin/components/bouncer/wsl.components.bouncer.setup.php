@@ -339,7 +339,18 @@ function wsl_component_bouncer_setup_membership_level()
 							foreach ( $users_membership_roles as $role => $name )
 							{
 						?>
-							<option value="<?php echo $role ?>"  <?php if( get_option( 'wsl_settings_bouncer_new_users_membership_default_role' ) == $role ) echo "selected"; ?> ><?php _wsl_e( $name, 'wordpress-social-login' ) ?></option>
+							<!--
+							// XTEC ************ MODIFICAT - Translate roles
+							// 2015.07.30 @nacho
+							-->
+							<option value="<?php echo $role ?>"  <?php if( get_option( 'wsl_settings_bouncer_new_users_membership_default_role' ) == $role ) echo "selected"; ?> ><?php _wsl_e( wp_specialchars_decode(translate_user_role( $name ) ), 'wordpress-social-login' ) ?></option>
+							<!--
+							//************ ORIGINAL
+							<option value="<?php //echo $role ?>"  <?php //if( get_option( 'wsl_settings_bouncer_new_users_membership_default_role' ) == $role ) echo "selected"; ?> ><?php //_wsl_e( $name, 'wordpress-social-login' ) ?></option>
+							//************ FI
+							-->
+
+
 						<?php
 							}
 						?>
