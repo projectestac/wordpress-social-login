@@ -165,7 +165,8 @@ function wsl_component_networks_sidebar_basic_insights()
 		echo '<!--';
 	}
 
-//************ FI ?>
+//************ FI 
+?>
 <div class="postbox">
 	<div class="inside">
 		<h3><?php _wsl_e("Insights", 'wordpress-social-login') ?></h3>
@@ -179,7 +180,7 @@ function wsl_component_networks_sidebar_basic_insights()
 				{
 					$users_conversion = ( 100 * $total_users_wsl ) / $total_users;
 					?>
-						<!-- Insights - conversions -->
+						<?php // <!-- Insights - conversions -->?>
 						<h4 style="border-bottom:1px solid #ccc"><?php _wsl_e("Conversions", 'wordpress-social-login') ?></h4>
 						<table width="90%">
 							<tr>
@@ -193,8 +194,9 @@ function wsl_component_networks_sidebar_basic_insights()
 							</tr>
 						</table>
 
-						<!-- Insights by provider -->
+
 						<?php
+							// <!-- Insights by provider -->
 							$data = wsl_get_stored_hybridauth_user_profiles_count_by_field( 'provider' );
 						?>
 						<h4 style="border-bottom:1px solid #ccc"><?php _wsl_e("By provider", 'wordpress-social-login') ?></h4>
@@ -224,8 +226,8 @@ function wsl_component_networks_sidebar_basic_insights()
 							</tr>
 						</table>
 
-						<!-- Insights by gender -->
 						<?php
+							// <!-- Insights by gender -->
 							$data = wsl_get_stored_hybridauth_user_profiles_count_by_field( 'gender' );
 						?>
 						<h4 style="border-bottom:1px solid #ccc"><?php _wsl_e("By gender", 'wordpress-social-login') ?></h4>
@@ -246,9 +248,9 @@ function wsl_component_networks_sidebar_basic_insights()
 								}
 							?>
 						</table>
-
-						<!-- Insights by age -->
+						
 						<?php
+							//<!-- Insights by age -->
 							$data = wsl_get_stored_hybridauth_user_profiles_count_by_field( 'age' );
 						?>
 						<h4 style="border-bottom:1px solid #ccc"><?php _wsl_e("By age", 'wordpress-social-login') ?></h4>
