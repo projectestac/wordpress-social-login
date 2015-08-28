@@ -415,13 +415,19 @@ function wsl_process_login_get_user_data( $provider, $redirect_to )
 			if( trim( strtolower( "@$item" ) ) == strtolower( $current ) )
 			{
 				$shall_pass = true;
+                                // XTEC ************ AFEGIT - domain_pass
+                                // 2015.08.27 @jmeler
+                                $domain_pass = true;
+                                //************ FI
 			}
 		}
-
-		if( ! $shall_pass )
+                // XTEC ************  ELIMINAT - 
+                // 2015.08.25 @jmeler
+                // If email's user not belong to domains still can login if user is included on whitelist 
+                /*if( ! $shall_pass )
 		{
 			return wsl_process_login_render_notice_page( _wsl__( get_option( 'wsl_settings_bouncer_new_users_restrict_domain_text_bounce' ), 'wordpress-social-login') );
-		}
+		}*/
 	}
 
 		// XTEC ************ AFEGIT - Added Moodle Login provider
@@ -430,9 +436,11 @@ function wsl_process_login_get_user_data( $provider, $redirect_to )
 			$config["providers"][$provider]["url"] = get_option( 'wsl_settings_' . $provider . '_url' );
 		}
 		//************ FI
-
+                
+        //XTEC ************ MODIFICAT - If email address of user belongs to domain, whitelist is redundant
+        //2015.08.25 @jmeler        
 	// Bouncer::Filters by e-mails addresses
-	if( get_option( 'wsl_settings_bouncer_new_users_restrict_email_enabled' ) == 1 )
+	if( !$domain_pass && get_option( 'wsl_settings_bouncer_new_users_restrict_email_enabled' ) == 1 )
 	{
 		if( empty( $hybridauth_user_email ) )
 		{
@@ -457,7 +465,67 @@ function wsl_process_login_get_user_data( $provider, $redirect_to )
 			return wsl_process_login_render_notice_page( _wsl__( get_option( 'wsl_settings_bouncer_new_users_restrict_email_text_bounce' ), 'wordpress-social-login') );
 		}
 	}
+        
+        //************ ORIGINAL
+        /*
+        if( get_option( 'wsl_settings_bouncer_new_users_restrict_email_enabled' ) == 1 )
+	{
+		if( empty( $hybridauth_user_email ) )
+		{
+			return wsl_process_login_render_notice_page( _wsl__( get_option( 'wsl_settings_bouncer_new_users_restrict_email_text_bounce' ), 'wordpress-social-login') );
+		}
 
+		$list = get_option( 'wsl_settings_bouncer_new_users_restrict_email_list' );
+		$list = preg_split( '/$\R?^/m', $list ); 
+
+		$shall_pass = false;
+
+		foreach( $list as $item )
+		{
+			if( trim( strtolower( $item ) ) == strtolower( $hybridauth_user_email ) )
+			{
+				$shall_pass = true;
+			}
+		}
+
+		if( ! $shall_pass )
+		{
+			return wsl_process_login_render_notice_page( _wsl__( get_option( 'wsl_settings_bouncer_new_users_restrict_email_text_bounce' ), 'wordpress-social-login') );
+		}
+	}
+        */
+        //************ FI
+        
+	// XTEC ************ AFEGIT - Email's Blacklist feature
+	// 2015.08.25 @jmeler
+        // Bouncer::Filters by e-mails addresses (forbidden e-mails)
+	if( get_option( 'wsl_settings_bouncer_new_users_restrict_blacklist_enabled' ) == 1 )
+	{
+		if( empty( $hybridauth_user_email ) )
+		{
+			return wsl_process_login_render_notice_page( _wsl__( get_option( 'wsl_settings_bouncer_new_users_restrict_blacklist_text_bounce' ), 'wordpress-social-login') );
+		}
+
+		$list = get_option( 'wsl_settings_bouncer_new_users_restrict_blacklist_list' );
+		$list = preg_split( '/$\R?^/m', $list ); 
+
+		$shall_pass = true;
+
+		foreach( $list as $item )
+		{
+			if( trim( strtolower( $item ) ) == strtolower( $hybridauth_user_email ) )
+			{
+				$shall_pass = false;
+			}
+		}
+
+		if( ! $shall_pass )
+		{
+			return wsl_process_login_render_notice_page( _wsl__( get_option( 'wsl_settings_bouncer_new_users_restrict_blacklist_text_bounce' ), 'wordpress-social-login') );
+		}
+	}
+        //************ FI
+        
 	// Bouncer::Filters by profile urls
 	if( get_option( 'wsl_settings_bouncer_new_users_restrict_profile_enabled' ) == 1 )
 	{ 
