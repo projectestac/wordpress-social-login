@@ -7,13 +7,13 @@
 */
 
 // Exit if accessed directly
-if ( !defined( 'ABSPATH' ) ) exit; 
+if ( !defined( 'ABSPATH' ) ) exit;
 
 // --------------------------------------------------------------------
 
 function wsl_component_networks_sidebar()
 {
-	// HOOKABLE: 
+	// HOOKABLE:
 	do_action( "wsl_component_networks_sidebar_start" );
 
 	$sections = array(
@@ -29,15 +29,25 @@ function wsl_component_networks_sidebar()
 		add_action( 'wsl_component_networks_sidebar_sections', $action );
 	}
 
-	// HOOKABLE: 
+	// HOOKABLE:
 	do_action( 'wsl_component_networks_sidebar_sections' );
-} 
+}
 
-// --------------------------------------------------------------------	
+// --------------------------------------------------------------------
+
 
 function wsl_component_networks_sidebar_what_is_this()
 {
 ?>
+<!-- XTEC ************ AFEGIT - Hide box -->
+<!-- 2015.07.29 @nacho -->
+<?php
+	if (!is_xtec_super_admin()){
+		echo '<!--';
+	}
+
+//************ FI ?>
+
 <div class="postbox">
 	<div class="inside">
 		<h3><?php _wsl_e("Welcome to WordPress Social Login", 'wordpress-social-login') ?></h3>
@@ -48,29 +58,45 @@ function wsl_component_networks_sidebar_what_is_this()
 			</p>
 			<p style="padding:0;margin:0 0 12px;">
 				<?php _wsl_e('<b>WordPress Social Login</b> come with a number of useful <b><a href="options-general.php?page=wordpress-social-login&wslp=components">Components</a></b> or add-ons that can be essential for your needs', 'wordpress-social-login') ?>.
-			</p> 
+			</p>
 			<p style="padding:0;margin:0 0 12px;">
 				<?php _wsl_e('If you are still new to things, we recommend that you read the <b><a href="http://miled.github.io/wordpress-social-login/documentation.html" target="_blank">WSL Documentation</a></b> and to make sure your server meet the minimum system requirements by running <b><a href="http://hybridauth.com/hawp4/wp-admin/options-general.php?page=wordpress-social-login&wslp=tools">WSL Diagnostics</a></b>', 'wordpress-social-login') ?>.
 			</p>
 			<p style="padding:0;margin:0 0 12px;">
 				<?php _wsl_e('If you run into any issue, then refer to <b><a href="http://miled.github.io/wordpress-social-login/support.html" target="_blank">Help &amp; Support</a></b>', 'wordpress-social-login') ?>.
-			</p> 
-		</div> 
-	</div> 
-</div> 
+			</p>
+		</div>
+	</div>
+</div>
 <?php
+// XTEC ************ AFEGIT - Close hide box
+// 2015.07.29 @nacho
+if (!is_xtec_super_admin()){
+	echo '-->';
+}
+//************ FI
 }
 
 add_action( 'wsl_component_networks_sidebar_what_is_this', 'wsl_component_networks_sidebar_what_is_this' );
 
-// --------------------------------------------------------------------	
+// --------------------------------------------------------------------
 
 function wsl_component_networks_sidebar_add_more_idps()
 {
+
 	GLOBAL $WORDPRESS_SOCIAL_LOGIN_PROVIDERS_CONFIG;
 
 	$assets_base_url = WORDPRESS_SOCIAL_LOGIN_PLUGIN_URL . '/assets/img/32x32/icondock/';
 ?>
+<!-- XTEC ************ AFEGIT - Hide Box -->
+<!-- 2015.07.29 @nacho -->
+<?php
+	if (!is_xtec_super_admin()){
+		echo '<!--';
+	}
+
+//************ FI ?>
+
 <div class="postbox">
 	<div class="inside">
 		<h3><?php _wsl_e("Add more providers", 'wordpress-social-login') ?></h3>
@@ -81,7 +107,7 @@ function wsl_component_networks_sidebar_add_more_idps()
 			</p>
 
 			<div style="width: 320px; padding: 10px; border: 1px solid #ddd; background-color: #fff;">
-				<?php 
+				<?php
 					$nb_used = count( $WORDPRESS_SOCIAL_LOGIN_PROVIDERS_CONFIG );
 
 					foreach( $WORDPRESS_SOCIAL_LOGIN_PROVIDERS_CONFIG AS $item )
@@ -108,23 +134,38 @@ function wsl_component_networks_sidebar_add_more_idps()
 					{
 						_wsl_e("Well! none left.", 'wordpress-social-login');
 					}
-				?> 
-			</div> 
-		</div> 	
-	</div> 
-</div> 
+				?>
+			</div>
+		</div>
+	</div>
+</div>
 <?php
+// XTEC ************ AFEGIT - Close hide box
+// 2015.07.29 @nacho
+if (!is_xtec_super_admin()){
+	echo '-->';
+}
+//************ FI
 }
 
 add_action( 'wsl_component_networks_sidebar_add_more_idps', 'wsl_component_networks_sidebar_add_more_idps' );
 
-// --------------------------------------------------------------------	
+// --------------------------------------------------------------------
 
 function wsl_component_networks_sidebar_basic_insights()
 {
 	GLOBAL $WORDPRESS_SOCIAL_LOGIN_PROVIDERS_CONFIG;
 
 	$assets_base_url = WORDPRESS_SOCIAL_LOGIN_PLUGIN_URL . '/assets/img/32x32/icondock/';
+?>
+<!-- XTEC ************ AFEGIT - Hide box -->
+<!-- 2015.07.29 @nacho -->
+<?php
+	if (!is_xtec_super_admin()){
+		echo '<!--';
+	}
+
+//************ FI 
 ?>
 <div class="postbox">
 	<div class="inside">
@@ -139,9 +180,9 @@ function wsl_component_networks_sidebar_basic_insights()
 				{
 					$users_conversion = ( 100 * $total_users_wsl ) / $total_users;
 					?>
-						<!-- Insights - conversions -->
+						<?php // <!-- Insights - conversions -->?>
 						<h4 style="border-bottom:1px solid #ccc"><?php _wsl_e("Conversions", 'wordpress-social-login') ?></h4>
-						<table width="90%"> 
+						<table width="90%">
 							<tr>
 								<td width="60%"><?php _wsl_e("WP users", 'wordpress-social-login') ?></td><td><?php echo $total_users; ?></td>
 							</tr>
@@ -153,13 +194,14 @@ function wsl_component_networks_sidebar_basic_insights()
 							</tr>
 						</table>
 
-						<!-- Insights by provider -->
+
 						<?php
+							// <!-- Insights by provider -->
 							$data = wsl_get_stored_hybridauth_user_profiles_count_by_field( 'provider' );
-						?> 
+						?>
 						<h4 style="border-bottom:1px solid #ccc"><?php _wsl_e("By provider", 'wordpress-social-login') ?></h4>
 						<table width="90%">
-							<?php 
+							<?php
 								$total_profiles_wsl = 0;
 
 								foreach( $data as $item ){
@@ -175,18 +217,18 @@ function wsl_component_networks_sidebar_basic_insights()
 								<?php
 									$total_profiles_wsl += (int) $item->items;
 								}
-							?> 
+							?>
 							<tr>
 								<td align="right">&nbsp;</td><td style="border-top:1px solid #ccc"><b><?php echo $total_profiles_wsl; ?></b> <?php _wsl_e("WSL profiles", 'wordpress-social-login') ?></td>
 							</tr>
 							<tr>
 								<td align="right">&nbsp;</td><td><b><?php echo $total_users_wsl; ?></b> <?php _wsl_e("WSL users", 'wordpress-social-login') ?></td>
 							</tr>
-						</table> 
+						</table>
 
-						<!-- Insights by gender -->
-						<?php 
-							$data = wsl_get_stored_hybridauth_user_profiles_count_by_field( 'gender' );  
+						<?php
+							// <!-- Insights by gender -->
+							$data = wsl_get_stored_hybridauth_user_profiles_count_by_field( 'gender' );
 						?>
 						<h4 style="border-bottom:1px solid #ccc"><?php _wsl_e("By gender", 'wordpress-social-login') ?></h4>
 						<table width="90%">
@@ -206,9 +248,9 @@ function wsl_component_networks_sidebar_basic_insights()
 								}
 							?>
 						</table>
-
-						<!-- Insights by age -->
-						<?php 
+						
+						<?php
+							//<!-- Insights by age -->
 							$data = wsl_get_stored_hybridauth_user_profiles_count_by_field( 'age' );
 						?>
 						<h4 style="border-bottom:1px solid #ccc"><?php _wsl_e("By age", 'wordpress-social-login') ?></h4>
@@ -239,13 +281,19 @@ function wsl_component_networks_sidebar_basic_insights()
 						</p>
 					<?php
 				}
-			?> 
-		</div> 
-	</div> 
-</div> 
+			?>
+		</div>
+	</div>
+</div>
 <?php
+// XTEC ************ AFEGIT - Close hide box
+// 2015.07.29 @nacho
+if (!is_xtec_super_admin()){
+	echo '-->';
+}
+//************ FI
 }
 
 add_action( 'wsl_component_networks_sidebar_basic_insights', 'wsl_component_networks_sidebar_basic_insights' );
 
-// --------------------------------------------------------------------	
+// --------------------------------------------------------------------
