@@ -41,7 +41,7 @@ function wsl_admin_main()
 	GLOBAL $WORDPRESS_SOCIAL_LOGIN_COMPONENTS;
 	GLOBAL $WORDPRESS_SOCIAL_LOGIN_PROVIDERS_CONFIG;
 	GLOBAL $WORDPRESS_SOCIAL_LOGIN_VERSION;
-
+       
 	if( isset( $_REQUEST["enable"] ) && isset( $WORDPRESS_SOCIAL_LOGIN_COMPONENTS[ $_REQUEST["enable"] ] ) )
 	{
 		$component = $_REQUEST["enable"];
@@ -64,20 +64,7 @@ function wsl_admin_main()
 		wsl_register_components();
 	}
 
-// XTEC ************ MODIFICAT - Hide tabs "Widget" and "Components"
-// 2014.11.14 @aginard
-    global $isAgora;
-
-    if ($isAgora) {
-        $wslp        = "users";
-    } else {
-    	$wslp        = "networks";
-    }
-//************ ORIGINAL
-/*
 	$wslp            = "networks";
-*/
-//************ FI
 
 	$wsldwp          = 0;
 	$assets_base_url = WORDPRESS_SOCIAL_LOGIN_PLUGIN_URL . '/assets/img/16x16/';
@@ -379,15 +366,6 @@ function wsl_admin_welcome_panel()
 	//> wsl-w-panel is shamelessly borrowed and modified from wordpress welcome-panel
 -->
 
-<!-- XTEC ************ AFEGIT - Remove Welcome banner -->
-<!-- 2014.11.14 @aginard -->
-<?php
-    global $isAgora, $isBlocs;
-    if (($isAgora && !is_xtecadmin()) || $isBlocs) {
-        echo '<!--';
-    }
-//************ FI (The following close PHP tag belongs to the patch) ?>
-
 <div id="wsl-w-panel">
 	<a href="options-general.php?page=wordpress-social-login&wslp=<?php echo $wslp ?>&wsldwp=1" id="wsl-w-panel-dismiss" <?php if( is_rtl() ) echo 'style="left: 10px;right: auto;"'; ?>><?php _wsl_e("Dismiss", 'wordpress-social-login') ?></a>
 
@@ -440,12 +418,6 @@ function wsl_admin_welcome_panel()
 </div>
 <?php
 
-// XTEC ************ AFEGIT - Remove Welcome banner
-// 2014.11.14 @aginard
-    if (($isAgora && !is_xtecadmin()) || $isBlocs) {
-        echo '-->';
-    }
-//************ FI
 
 }
 
