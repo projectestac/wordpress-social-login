@@ -359,6 +359,14 @@ function wsl_admin_welcome_panel()
 	{
 		$wslp = $_REQUEST["wslp"];
 	}
+
+// XTEC ************ AFEGIT - Remove welcome panel
+// 2015.09.14 @aginard
+    
+if (is_xtec_super_admin()) {
+
+//************ FI
+
 ?>
 <!--
 	if you want to know if a UI was made by developer, then here is a tip: he will always use tables
@@ -418,6 +426,12 @@ function wsl_admin_welcome_panel()
 </div>
 <?php
 
+// XTEC ************ AFEGIT - Remove welcome panel
+// 2015.09.14 @aginard
+    
+}
+
+//************ FI
 
 }
 
