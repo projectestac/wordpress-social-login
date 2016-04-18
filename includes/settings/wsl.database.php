@@ -142,7 +142,16 @@ function wsl_database_uninstall()
 	delete_option('wsl_settings_bouncer_new_users_restrict_domain_list' );
 	delete_option('wsl_settings_bouncer_new_users_restrict_email_list' );
 	delete_option('wsl_settings_bouncer_new_users_restrict_profile_list' );
+        
+        // XTEC ************ AFEGIT - Delete blacklist's registered options
+	// 2015.08.25 @jmeler
 
+        delete_option('wsl_settings_bouncer_new_users_restrict_blacklist_enabled' );
+        delete_option('wsl_settings_bouncer_new_users_restrict_blacklist_list' );
+        delete_option('wsl_settings_bouncer_new_users_restrict_blacklist_text_bounce' );
+
+        //************ FI
+        
 	delete_option('wsl_settings_contacts_import_facebook' );
 	delete_option('wsl_settings_contacts_import_google' );
 	delete_option('wsl_settings_contacts_import_twitter' );

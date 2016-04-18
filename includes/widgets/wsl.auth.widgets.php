@@ -239,6 +239,16 @@ $provider_icon_markup = apply_filters( 'wsl_render_login_form_alter_provider_ico
 		} 
 	} 
 
+        // XTEC ************ AFEGIT - Don't show 'Connect with' text if there is no active provider
+        // 2015.09.15 @aginard
+        if ($no_idp_used) {
+            echo "<style>.wp-social-login-connect-with {display:none;} </style>";
+        }
+        // ************ FI
+
+        // XTEC ************ ELIMINAT - Hide welcome box.
+	// 2015.02.15 @vsaavedra
+        /*
 	// no provider enabled?
 	if( $no_idp_used )
 	{
@@ -249,6 +259,9 @@ $provider_icon_markup = apply_filters( 'wsl_render_login_form_alter_provider_ico
 		<style>#wp-social-login-connect-with{display:none;}</style>
 <?php
 	}
+
+        */
+	// ************ FI
 ?>
 
 	</div> 

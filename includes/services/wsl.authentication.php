@@ -417,40 +417,105 @@ function wsl_process_login_get_user_data( $provider, $redirect_to )
 				$shall_pass = true;
 			}
 		}
-
-		if( ! $shall_pass )
+        
+        // XTEC ************  ELIMINAT - If email's user doesn't belong to any domain, they still can login if user is included on whitelist
+        // 2015.08.25 @jmeler
+        /*
+        if( ! $shall_pass )
 		{
 			return wsl_process_login_render_notice_page( _wsl__( get_option( 'wsl_settings_bouncer_new_users_restrict_domain_text_bounce' ), 'wordpress-social-login') );
 		}
+        */
+        //************ FI
 	}
 
-	// Bouncer::Filters by e-mails addresses
-	if( get_option( 'wsl_settings_bouncer_new_users_restrict_email_enabled' ) == 1 )
+    // XTEC ************ AFEGIT - Added Moodle Login provider
+    // 2014.08.29 @pferre22
+    if ($provider == 'Moodle' && get_option( 'wsl_settings_' . $provider . '_url' )){
+        $config["providers"][$provider]["url"] = get_option( 'wsl_settings_' . $provider . '_url' );
+    }
+    //************ FI
+
+    // XTEC ************ MODIFICAT - Check white list if user is not authorized by domain 
+    // 2015.08.25 @jmeler
+    // 2015.09.18 @aginard
+
+    // Bouncer::Filters by e-mails addresses
+    if(( !isset($shall_pass) || !$shall_pass ) )
+    {
+        if (get_option( 'wsl_settings_bouncer_new_users_restrict_email_enabled' ) == 1 )
+    //************ ORIGINAL
+    /*
+    if( get_option( 'wsl_settings_bouncer_new_users_restrict_email_enabled' ) == 1 )
+    */
+    //************ FI  
+
+    {
+            if( empty( $hybridauth_user_email ) )
+            {
+                    return wsl_process_login_render_notice_page( _wsl__( get_option( 'wsl_settings_bouncer_new_users_restrict_email_text_bounce' ), 'wordpress-social-login') );
+            }
+
+            $list = get_option( 'wsl_settings_bouncer_new_users_restrict_email_list' );
+            $list = preg_split( '/$\R?^/m', $list ); 
+
+            $shall_pass = false;
+
+            foreach( $list as $item )
+            {
+                    if( trim( strtolower( $item ) ) == strtolower( $hybridauth_user_email ) )
+                    {
+                            $shall_pass = true;
+                    }
+            }
+
+            if( ! $shall_pass )
+            {
+                    return wsl_process_login_render_notice_page( _wsl__( get_option( 'wsl_settings_bouncer_new_users_restrict_email_text_bounce' ), 'wordpress-social-login') );
+            }
+
+    // XTEC ************ AFEGIT - Check white list if user is not authorized by domain 
+    // 2015.09.18 @aginard
+
+    } else if (get_option( 'wsl_settings_bouncer_new_users_restrict_domain_enabled' ) != 1) {
+        $shall_pass = true;
+    } else {
+        return wsl_process_login_render_notice_page( _wsl__( get_option( 'wsl_settings_bouncer_new_users_restrict_domain_text_bounce' ), 'wordpress-social-login') );
+    }
+    //************ FI
+        
+        }
+
+	// XTEC ************ AFEGIT - Email's Blacklist feature
+	// 2015.08.25 @jmeler
+    // Bouncer::Filters by e-mails addresses (forbidden e-mails)
+	if( get_option( 'wsl_settings_bouncer_new_users_restrict_blacklist_enabled' ) == 1 )
 	{
 		if( empty( $hybridauth_user_email ) )
 		{
-			return wsl_process_login_render_notice_page( _wsl__( get_option( 'wsl_settings_bouncer_new_users_restrict_email_text_bounce' ), 'wordpress-social-login') );
+			return wsl_process_login_render_notice_page( _wsl__( get_option( 'wsl_settings_bouncer_new_users_restrict_blacklist_text_bounce' ), 'wordpress-social-login') );
 		}
 
-		$list = get_option( 'wsl_settings_bouncer_new_users_restrict_email_list' );
+		$list = get_option( 'wsl_settings_bouncer_new_users_restrict_blacklist_list' );
 		$list = preg_split( '/$\R?^/m', $list ); 
 
-		$shall_pass = false;
+		$shall_pass = true;
 
 		foreach( $list as $item )
 		{
 			if( trim( strtolower( $item ) ) == strtolower( $hybridauth_user_email ) )
 			{
-				$shall_pass = true;
+				$shall_pass = false;
 			}
 		}
 
 		if( ! $shall_pass )
 		{
-			return wsl_process_login_render_notice_page( _wsl__( get_option( 'wsl_settings_bouncer_new_users_restrict_email_text_bounce' ), 'wordpress-social-login') );
+			return wsl_process_login_render_notice_page( _wsl__( get_option( 'wsl_settings_bouncer_new_users_restrict_blacklist_text_bounce' ), 'wordpress-social-login') );
 		}
 	}
-
+    //************ FI
+        
 	// Bouncer::Filters by profile urls
 	if( get_option( 'wsl_settings_bouncer_new_users_restrict_profile_enabled' ) == 1 )
 	{ 

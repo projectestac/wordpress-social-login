@@ -357,9 +357,17 @@ function wsl_admin_welcome_panel()
 	if( isset( $_REQUEST["wslp"] ) )
 	{
 		$wslp = $_REQUEST["wslp"];
-	}	
-?> 
-<!-- 
+	}
+
+// XTEC ************ AFEGIT - Remove welcome panel
+// 2015.09.14 @aginard
+    
+if (is_xtec_super_admin()) {
+
+//************ FI
+
+?>
+<!--
 	if you want to know if a UI was made by developer, then here is a tip: he will always use tables
 
 	//> wsl-w-panel is shamelessly borrowed and modified from wordpress welcome-panel
@@ -414,7 +422,15 @@ function wsl_admin_welcome_panel()
 		</tr>
 	</table> 
 </div>
-<?php 
+<?php
+
+// XTEC ************ AFEGIT - Remove welcome panel
+// 2015.09.14 @aginard
+    
+}
+
+//************ FI
+
 }
 
 // --------------------------------------------------------------------
