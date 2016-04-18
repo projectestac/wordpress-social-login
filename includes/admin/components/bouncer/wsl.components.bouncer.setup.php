@@ -336,8 +336,15 @@ function wsl_component_bouncer_setup_filters_domains()
 	<div class="inside"> 
 		<p>
 			<?php _wsl_e("Restrict registration to a limited number of domains name.", 'wordpress-social-login') ?>
+                        
+            <!-- XTEC ************ ELIMINAT - Removed when implementing white and black lists -->
+            <!-- // 2015.08.25 @jmeler -->
+            <!--
 			<br /><?php _wsl_e("Note that filtration domains name takes priority over filtration by e-mails addresses and profile urls", 'wordpress-social-login') ?>.
 			<br /><?php _wsl_e("Insert one domain address per line and try to keep this list short (ex: <code>gmail.com</code>, without '@'). On <b>Bounce text</b> insert the text you want to display for rejected users", 'wordpress-social-login') ?>.
+            -->
+            <!--//************ FI -->
+
 		</p>
 		<table width="100%" border="0" cellpadding="5" cellspacing="2" style="border-top:1px solid #ccc;">  
 		  <tr>
@@ -381,8 +388,15 @@ function wsl_component_bouncer_setup_filters_mails()
 	<div class="inside"> 
 		<p>
 			<?php _wsl_e("Restrict registration to a limited number of emails addresses.", 'wordpress-social-login') ?> 
+
+            <!-- XTEC ************ ELIMINAT - Removed when implementing white and black lists -->
+            <!-- // 2015.08.25 @jmeler -->
+            <!--
 			<br /><?php _wsl_e("Note that filtration e-mails addresses takes priority over filtration by profile urls", 'wordpress-social-login') ?>.
 			<br /><?php _wsl_e("Insert one email address per line and try to keep this list short (ex: <code>hybridauth@gmail.com</code>). On <b>Bounce text</b> insert the text you want to display for rejected users", 'wordpress-social-login') ?>.
+            -->
+            <!--//************ FI -->
+
 		</p>
 		<table width="100%" border="0" cellpadding="5" cellspacing="2" style="border-top:1px solid #ccc;">  
 		  <tr>

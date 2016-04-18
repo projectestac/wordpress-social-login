@@ -37,6 +37,10 @@ if ( !defined( 'ABSPATH' ) ) exit;
 // --------------------------------------------------------------------
 
 $WORDPRESS_SOCIAL_LOGIN_PROVIDERS_CONFIG = ARRAY(
+
+    // XTEC ************ ELIMINAT - Removed login provider
+    // 2014.07.23 @aginard
+    /*
 	ARRAY( 
 		"provider_id"       => "Facebook",
 		"provider_name"     => "Facebook", 
@@ -48,6 +52,9 @@ $WORDPRESS_SOCIAL_LOGIN_PROVIDERS_CONFIG = ARRAY(
 		"default_network"   => true,
 		"cat"               => "socialnetworks",
 	),
+    */
+    //************ FI
+
 	ARRAY(
 		"provider_id"       => "Google",
 		"provider_name"     => "Google",
@@ -59,6 +66,23 @@ $WORDPRESS_SOCIAL_LOGIN_PROVIDERS_CONFIG = ARRAY(
 		"default_network"   => true,
 		"cat"               => "socialnetworks",
 	),
+
+	// XTEC ************ AFEGIT - Added Moodle Login provider
+        // 2014.08.29 @pferre22
+	ARRAY(
+		"provider_id"       => "Moodle",
+		"provider_name"     => "Moodle",
+		"require_client_id" => true,
+		"new_app_link"      => "MOODLE_URL/agora/local/oauth/index.php",
+
+		"default_network"  => true,
+		"cat"               => "agora",
+	)
+        //************ FI
+
+        // XTEC ************ ELIMINAT - Removed login providers
+        // 2014.07.23 @aginard
+        /*
 	ARRAY( 
 		"provider_id"       => "Twitter",
 		"provider_name"     => "Twitter", 
@@ -274,6 +298,9 @@ $WORDPRESS_SOCIAL_LOGIN_PROVIDERS_CONFIG = ARRAY(
 
 		"cat"               => "misc",
 	),
+        */
+        //************ FI
+
 );
 
 // --------------------------------------------------------------------
