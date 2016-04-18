@@ -3,7 +3,7 @@
 * WordPress Social Login
 *
 * http://miled.github.io/wordpress-social-login/ | https://github.com/miled/wordpress-social-login
-*  (c) 2011-2014 Mohamed Mrassi and contributors | http://wordpress.org/plugins/wordpress-social-login/
+*  (c) 2011-2015 Mohamed Mrassi and contributors | http://wordpress.org/plugins/wordpress-social-login/
 */
 
 /**
@@ -216,7 +216,7 @@ $WORDPRESS_SOCIAL_LOGIN_PROVIDERS_CONFIG = ARRAY(
 	),
 	ARRAY( 
 		"provider_id"       => "Vkontakte",
-		"provider_name"     => "Vkontakte", 
+		"provider_name"     => "ВКонтакте",
 		"callback"          => true,
 		"require_client_id" => true,
 		"new_app_link"      => "http://vk.com/developers.php", 

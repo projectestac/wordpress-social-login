@@ -15,7 +15,7 @@
 class Hybrid_Providers_Facebook extends Hybrid_Provider_Model
 {
 	// default permissions, and a lot of them. You can change them from the configuration by setting the scope to what you want/need
-	public $scope = "email, public_profile, user_friends";
+	public $scope = "email, public_profile";
 
 	/**
 	* IDp wrappers initializer 
@@ -106,7 +106,6 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model
 			$this->api->setAccessToken( $this->token("access_token") );
 		}
 
-		
 		// if auth_type is used, then an auth_nonce is passed back, and we need to check it.
 		if(isset($_REQUEST['auth_nonce'])){
 			
@@ -171,7 +170,13 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model
 		try{ 
 			$this->setAccessToken();
 
-			$data = $this->api->api('/me'); 
+			$fields = array(
+				'id', 'name', 'first_name', 'last_name', 'link', 'website', 
+				'gender', 'locale', 'about', 'email', 'hometown', 'location',
+				'verified'
+			);
+
+			$data = $this->api->api('/me?fields=' . implode(',', $fields));
 		}
 		catch( FacebookApiException $e ){
 			throw new Exception( "User profile request failed! {$this->providerId} returned an error", 6 );
@@ -192,7 +197,7 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model
 		$this->user->profile->profileURL    = (array_key_exists('link',$data))?$data['link']:""; 
 		$this->user->profile->webSiteURL    = (array_key_exists('website',$data))?$data['website']:""; 
 		$this->user->profile->gender        = (array_key_exists('gender',$data))?$data['gender']:"";
-        	$this->user->profile->language      = (array_key_exists('locale',$data))?$data['locale']:"";
+        $this->user->profile->language      = (array_key_exists('locale',$data))?$data['locale']:"";
 		$this->user->profile->description   = (array_key_exists('about',$data))?$data['about']:"";
 		$this->user->profile->email         = (array_key_exists('email',$data))?$data['email']:"";
 		$this->user->profile->region        = (array_key_exists("hometown",$data)&&array_key_exists("name",$data['hometown']))?$data['hometown']["name"]:"";
