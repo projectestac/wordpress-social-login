@@ -388,6 +388,11 @@ function wsl_process_login_get_user_data( $provider, $redirect_to )
 	$requested_user_email     = '';
 	$wordpress_user_id        = 0;
 
+	//XTEC ************ AFEGIT ­ Initialize variable to can not access to default
+	//2016.09.13 @xaviernietosanchez
+	$shall_pass = false;
+	//************ FI
+
 	/* 1. Grab the user profile from social network */
 
 	if( ! ( isset( $_SESSION['wsl::userprofile'] ) && $_SESSION['wsl::userprofile'] && $hybridauth_user_profile = json_decode( $_SESSION['wsl::userprofile'] ) ) )
@@ -453,6 +458,11 @@ function wsl_process_login_get_user_data( $provider, $redirect_to )
                 {
                         return wsl_process_login_render_notice_page( _wsl__( "Registration is now closed.", 'wordpress-social-login' ) );
                 }
+
+                //XTEC ************ AFEGIT ­Not show intermediate page Profile Completion
+				//2016.09.09 @xaviernietosanchez
+				update_option('wsl_settings_bouncer_accounts_linking_enabled', 0);
+				//************ FIN
 
                 // Bouncer::Accounts linking/mapping
                 // > > not implemented yet! Planned for WSL 2.3
@@ -556,16 +566,8 @@ function wsl_process_login_get_user_data( $provider, $redirect_to )
 			return wsl_process_login_render_notice_page( _wsl__( get_option( 'wsl_settings_bouncer_new_users_restrict_email_text_bounce' ), 'wordpress-social-login') );
 		}
 
-    // XTEC ************ AFEGIT - Check white list if user is not authorized by domain 
-    // 2015.09.18 @aginard
-
-    } else if (get_option( 'wsl_settings_bouncer_new_users_restrict_domain_enabled' ) != 1) {
-        $shall_pass = true;
-    } else {
-        return wsl_process_login_render_notice_page( _wsl__( get_option( 'wsl_settings_bouncer_new_users_restrict_domain_text_bounce' ), 'wordpress-social-login') );
     }
-    //************ FI
-        
+
 	}
 	// XTEC ************ AFEGIT - Email's Blacklist feature
 	// 2015.08.25 @jmeler
@@ -648,14 +650,28 @@ function wsl_process_login_get_user_data( $provider, $redirect_to )
 
 	/* 6. returns user data */
 
-	return array(
-		$user_id,
-		$adapter,
-		$hybridauth_user_profile,
-		$requested_user_login,
-		$requested_user_email,
-		$wordpress_user_id
-	);
+	//XTEC ************ AFEGIT ­ Check value to granted or denied access
+	//2016.09.13 @xaviernietosanchez
+	if( ! $shall_pass ){
+
+		return wsl_process_login_render_notice_page( _wsl__( get_option( 'wsl_settings_bouncer_new_users_restrict_profile_text_bounce' ), 'wordpress-social-login') );
+
+	} else {
+	//************ FI
+
+		return array(
+			$user_id,
+			$adapter,
+			$hybridauth_user_profile,
+			$requested_user_login,
+			$requested_user_email,
+			$wordpress_user_id
+		);
+
+	//XTEC ************ AFEGIT ­ Check value to granted or denied access
+	//2016.09.13 @xaviernietosanchez
+	}
+	//************ FI
 }
 
 // --------------------------------------------------------------------

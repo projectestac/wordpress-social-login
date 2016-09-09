@@ -43,7 +43,6 @@ function wsl_component_bouncer_sidebar_what_is_this()
 
 		<div style="padding:0 20px;">
 			<h4 style="cursor: default;border-bottom:1px solid #ccc;font-size: 13px;"><?php _wsl_e("Hey, meet our friend, the Bouncer", 'wordpress-social-login') ?></h4>
-
 			<p style="margin:10px;font-size: 13px;">
 			<?php _wsl_e('Ever been in trouble with one of <a href="http://www.flickr.com/search/?q=bouncer+doorman&z=e" target="_blank">these guys</a>? Well, this module have more or less the same role, and he will try his best to piss your users off until they meet your requirements.', 'wordpress-social-login') ?>
 			</p>

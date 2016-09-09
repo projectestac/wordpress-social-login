@@ -183,6 +183,17 @@ function wsl_component_networks_setup()
 							<?php }
 							//************ FI
 							?>
+							<?php
+							// XTEC ************ AFEGIT - Add text information behavior
+                            // 2016.09.13 @xaviernietosanchez
+                            ?>
+							<tr valign="top" <?php if( ! get_option( 'wsl_settings_' . $provider_id . '_enabled' ) ) echo 'style="display:none"'; ?> class="wsl_tr_settings_<?php echo $provider_id; ?>">
+								<td colspan="3"><a href="options-general.php?page=wordpress-social-login&wslp=bouncer"><?php _wsl_e('To default users can not acces. Is necessary you to activate some filter.','wordpress-social-login') ?> </a>
+								</td>
+							</tr>
+							<?php
+							//************ FI
+                            ?>
 						<?php } // if require registration ?>
 					</tbody>
 				</table>
