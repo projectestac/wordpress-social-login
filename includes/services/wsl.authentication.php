@@ -922,7 +922,7 @@ function wsl_process_login_build_provider_config( $provider )
 	}
 
 	// set custom endpoint?
-	if( in_array( strtolower( $provider ), array( 'dribbble' ) ) )
+	if( in_array( strtolower( $provider ), array( 'dribbble', 'live' ) ) )
 	{
 		$config["providers"][$provider]["endpoint"] = WORDPRESS_SOCIAL_LOGIN_HYBRIDAUTH_ENDPOINT_URL . 'endpoints/' . strtolower( $provider ) . '.php';
 	}

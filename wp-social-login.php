@@ -68,7 +68,7 @@ global $WORDPRESS_SOCIAL_LOGIN_PROVIDERS_CONFIG;
 global $WORDPRESS_SOCIAL_LOGIN_COMPONENTS;
 global $WORDPRESS_SOCIAL_LOGIN_ADMIN_TABS;
 
-$WORDPRESS_SOCIAL_LOGIN_VERSION = "2.3.0";
+$WORDPRESS_SOCIAL_LOGIN_VERSION = "2.3.1";
 
 $_SESSION["wsl::plugin"] = "WordPress Social Login " . $WORDPRESS_SOCIAL_LOGIN_VERSION;
 
@@ -256,7 +256,7 @@ require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . 'includes/widgets/wsl.loading.sc
 # WSL Admin interfaces
 if( is_admin() && ( !defined( 'DOING_AJAX' ) || !DOING_AJAX ) )
 {
-	require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . 'includes/admin/wsl.admin.ui.php'        ); // The entry point to WSL Admin interfaces
+	require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . 'includes/admin/wsl.admin.ui.php'            ); // The entry point to WSL Admin interfaces
 }
 
 // --------------------------------------------------------------------
