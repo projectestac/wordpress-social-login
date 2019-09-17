@@ -234,6 +234,13 @@ function wsl_register_setting()
 
 			// api secret
 			register_setting( 'wsl-settings-group', 'wsl_settings_' . $provider_id . '_app_secret' );
+
+            // XTEC ************ AFEGIT - Added Moodle Login provider
+            // 2014.08.29 @pferre22
+            if ($provider_id == 'Moodle'){
+                register_setting( 'wsl-settings-group', 'wsl_settings_' . $provider_id . '_url' );
+            }
+            //************ FI
 		}
 	}
 

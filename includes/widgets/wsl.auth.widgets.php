@@ -236,7 +236,15 @@ function wsl_render_auth_widget( $args = array() )
 			$no_idp_used = false;
 		}
 	}
-
+// XTEC ************ AFEGIT - Don't show 'Connect with' text if there is no active provider
+// 2015.09.15 @aginard
+if ($no_idp_used) {
+    echo "<style>.wp-social-login-connect-with {display:none;} </style>";
+}
+// ************ FI
+        // XTEC ************ ELIMINAT - Hide welcome box.
+	// 2015.02.15 @vsaavedra
+        /*
 	// no provider enabled?
 	if( $no_idp_used )
 	{
@@ -247,6 +255,8 @@ function wsl_render_auth_widget( $args = array() )
 		<style>#wp-social-login-connect-with{display:none;}</style>
 <?php
 	}
+*/
+// ************ FI
 ?>
 
 	</div>

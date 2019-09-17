@@ -47,19 +47,34 @@ function wsl_component_bouncer_sidebar_what_is_this()
 			<p style="margin:10px;font-size: 13px;">
 			<?php _wsl_e('Ever been in trouble with one of <a href="http://www.flickr.com/search/?q=bouncer+doorman&z=e" target="_blank">these guys</a>? Well, this module have more or less the same role, and he will try his best to piss your users off until they meet your requirements.', 'wordpress-social-login') ?>
 			</p>
-
+    <!--// XTEC ************ AFEGIT - Allow this text only to superadmins -->
+    <!--// 2015.09.16 @aginard -->
+    <?php if (is_xtec_super_admin()) { ?>
+    <!--//************ FI -->
 			<p style="margin:10px;font-size: 13px;">
 			<?php _wsl_e("This feature is most suited for small businesses and folks running a closed-door blog between friends or coworkers.", 'wordpress-social-login') ?>
 			</p>
 
+        <!--// XTEC ************ AFEGIT - Allow this text only to superadmins -->
+        <!--// 2015.09.16 @aginard -->
+    <?php } ?>
+            <!--//************ FI -->
 			<h4 style="cursor: default;border-bottom:1px solid #ccc;"><?php _wsl_e("IMPORTANT!", 'wordpress-social-login') ?></h4>
 
 			<p style="margin:10px;">
 				<?php _wsl_e("All the settings on this page without exception are only valid for users authenticating through <b>WordPress Social Login Widget", 'wordpress-social-login') ?></b>.
 			</p> 
+    <!--// XTEC ************ AFEGIT - Allow this text only to superadmins -->
+    <!--// 2015.09.16 @aginard -->
+    <?php if (is_xtec_super_admin()) { ?>
+    <!--//************ FI -->
 			<p style="margin:10px;">
 			<?php _wsl_e("Users authenticating through the regulars Wordpress Login and Register pages with their usernames and passwords WILL NOT be affected.", 'wordpress-social-login') ?>
 			</p>
+        <!--// XTEC ************ AFEGIT - Allow this text only to superadmins -->
+        <!--// 2015.09.16 @aginard -->
+    <?php } ?>
+            <!--//************ FI -->
 		</div> 
 	</div> 
 </div> 

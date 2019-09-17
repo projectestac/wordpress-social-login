@@ -149,6 +149,18 @@ function wsl_component_networks_setup()
 									<td><a href="javascript:void(0)" onClick="toggleproviderhelp('<?php echo $provider_id; ?>')"><?php _wsl_e("Where do I get this info?", 'wordpress-social-login') ?></a></td>
 								</tr>
 							<?php } ?>
+                            <?php
+                            // XTEC ************ AFEGIT - Added Moodle Login provider
+                            // 2014.08.29 @pferre22
+                            if ( $provider_id == 'Moodle' ){ // key or id ? ?>
+                                <tr valign="top" <?php if( ! get_option( 'wsl_settings_' . $provider_id . '_enabled' ) ) echo 'style="display:none"'; ?> class="wsl_tr_settings_<?php echo $provider_id; ?>" >
+                                    <td><?php _wsl_e("URL de l'aplicació", 'wordpress-social-login') ?>:</td>
+                                    <td><input type="text" name="<?php echo 'wsl_settings_' . $provider_id . '_url' ?>" value="<?php echo get_option( 'wsl_settings_' . $provider_id . '_url' ); ?>" ></td>
+                                    <td></td>
+                                </tr>
+                            <?php }
+                            //************ FI
+							?>
 						<?php } // if require registration ?>
 					</tbody>
 				</table>
@@ -186,6 +198,12 @@ function wsl_component_networks_setup()
 				<?php endif; ?>
 
 				<br />
+
+                <!--// XTEC ************ AFEGIT - Customize help info for Moodle and Google providers. -->
+                <!--// 2014.11.19 @aginard -->
+                <?php if (($provider_id != 'Moodle') && ($provider_id != 'Google')) : ?>
+                <!--//************ FI -->
+
 				<div
 					class="wsl_div_settings_help_<?php echo $provider_id; ?>"
 					style="<?php if( isset( $_REQUEST["enable"] ) && ! isset( $_REQUEST["settings-updated"] ) && $_REQUEST["enable"] == $provider_id ) echo "-"; // <= lolz ?>display:none;"
@@ -269,6 +287,26 @@ function wsl_component_networks_setup()
 						</p>
 					<?php endif; ?>
 				</div>
+            <!--// XTEC ************ AFEGIT - Customize help info for Moodle and Google providers. Not using gettext, sorry! :( -->
+            <!--// 2014.11.19 @aginard -->
+        <?php else : global $isAgora; if ($provider_id == 'Moodle') : ?>
+            <?php $help_moodle= ($isAgora) ? 'http://agora.xtec.cat/moodle/moodle/mod/glossary/view.php?id=1741&mode=entry&hook=2228':'https://sites.google.com/a/xtec.cat/ajudaxtecblocs/usuaris/configuracio-d-acces-a-xtecblocs-amb-els-usuaris-del-moodle'; ?>
+            <div
+                    class="wsl_div_settings_help_<?php echo $provider_id; ?>"
+                    style="<?php if( isset( $_REQUEST["enable"] ) && ! isset( $_REQUEST["settings-updated"] ) && $_REQUEST["enable"] == $provider_id ) echo "-"; // <= lolz ?>display:none;">
+                <hr class="wsl" />
+                <p>Per fer que els usuaris del Moodle puguin entrar a aquest espai automàticament, visiteu <a href="<?php echo $help_moodle?>" target="_blank">aquesta pàgina</a> i seguiu les instruccions.</p><p>La primera vegada que un usuari/ària del Moodle entri, se li crearà automàticament un compte a aquest espai en cas que no en tingui.</p>
+            </div>
+        <?php endif; if ($provider_id == 'Google') : ?>
+            <?php $help_google= ($isAgora) ? 'http://agora.xtec.cat/moodle/moodle/mod/glossary/view.php?id=1741&mode=entry&hook=2281':'https://sites.google.com/a/xtec.cat/ajudaxtecblocs/usuaris/configuracio-d-acces-a-xtecblocs-amb-usuaris-de-google'; ?>
+            <div
+                    class="wsl_div_settings_help_<?php echo $provider_id; ?>"
+                    style="<?php if( isset( $_REQUEST["enable"] ) && ! isset( $_REQUEST["settings-updated"] ) && $_REQUEST["enable"] == $provider_id ) echo "-"; // <= lolz ?>display:none;">
+                <hr class="wsl" />
+                <p>Per fer que els usuaris del Google puguin entrar a aquest espai automàticament, visiteu <a href="<?php echo $help_google?>" target="_blank">aquesta pàgina</a> i seguiu les instruccions.</p><p>La primera vegada que un usuari/ària del Google entri, se li crearà automàticament un compte a aquest espai en cas que no en tingui.</p>
+            </div>
+        <?php endif; endif; ?>
+                <!--//************ FI -->
 			</div>
 		</div>
 <?php
