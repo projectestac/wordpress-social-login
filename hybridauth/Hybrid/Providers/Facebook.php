@@ -1,6 +1,12 @@
 <?php
 
-require_once realpath( dirname( __FILE__ ) )  . "/../thirdparty/Facebook/autoload.php";
+$facebook_autoloader = dirname( __FILE__ ) . "/../thirdparty/Facebook/autoload.php";
+
+if( ! file_exists($facebook_autoloader) ){
+	die( "Error: couldn't include Facebook autoloader." );
+}
+
+require_once $facebook_autoloader;
 
 use Facebook\Exceptions\FacebookSDKException;
 use Facebook\Facebook as FacebookSDK;
@@ -25,7 +31,7 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model {
      * @link https://developers.facebook.com/docs/facebook-login/permissions
      * @var array $scope
      */
-    public $scope = ['email', 'user_about_me', 'user_birthday', 'user_hometown', 'user_location', 'user_website', 'publish_actions', 'read_custom_friendlists'];
+    public $scope = [ 'public_profile', 'email' ];
 
     /**
      * Provider API client
