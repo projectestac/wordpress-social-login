@@ -116,11 +116,6 @@ class Hybridauth
     */
     public function getAdapter($name)
     {
-        // XTEC ************ AFEGIT - Load WordPress in order to have WP_SITEURL defined
-        // 2019.09.17 @aginard
-        require_once( dirname(dirname(dirname(dirname(dirname(dirname(dirname( __FILE__ ))))))) . '/wp-load.php' );
-        //************ FI
-
         $config = $this->getProviderConfig($name);
 
         $adapter = isset($config['adapter']) ? $config['adapter'] : sprintf('Hybridauth\\Provider\\%s', $name);
