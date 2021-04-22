@@ -35,6 +35,11 @@ function wsl_component_networks_setup()
 
         update_option( 'wsl_settings_' . $provider_id . '_enabled', 1 );
 	}
+
+// XTEC ************ ESBORRAT - Hide box to add providers to end users
+// 2021.04.22 @aginard
+/*
+
 ?>
 <div class="postbox">
 	<div class="inside">
@@ -78,6 +83,10 @@ function wsl_component_networks_setup()
 		</div>
 	</div>
 </div>
+
+*/
+//************ FI
+?>
 
 <!-- -->
 
@@ -196,6 +205,20 @@ function wsl_component_networks_setup()
 									<td><a href="javascript:void(0)" onClick="toggleproviderhelp('<?php echo $provider_id; ?>')"><?php _wsl_e("Where do I get this info?", 'wordpress-social-login') ?></a></td>
 								</tr>
 							<?php } ?>
+
+                            <?php
+                            // XTEC ************ AFEGIT - Added Moodle Login provider
+                            // 2014.08.29 @pferre22
+                            if ( $provider_id == 'Moodle' ){ // key or id ? ?>
+                                <tr valign="top" <?php if( ! get_option( 'wsl_settings_' . $provider_id . '_enabled' ) ) echo 'style="display:none"'; ?> class="wsl_tr_settings_<?php echo $provider_id; ?>" >
+                                    <td><?php _wsl_e("URL de l'aplicació", 'wordpress-social-login') ?>:</td>
+                                    <td><input type="text" name="<?php echo 'wsl_settings_' . $provider_id . '_url' ?>" value="<?php echo get_option( 'wsl_settings_' . $provider_id . '_url' ); ?>" ></td>
+                                    <td></td>
+                                </tr>
+                            <?php }
+                            //************ FI
+                            ?>
+
 						<?php } // if require registration ?>
 					</tbody>
 				</table>

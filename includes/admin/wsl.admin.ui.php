@@ -177,6 +177,9 @@ function wsl_admin_ui_header( $wslp = null )
 
 		if( ! get_option( 'wsl_settings_migration_notice_is_read' ) )
 		{
+		    // XTEC ************ ESBORRAT - Hide technical information to end users
+		    // 2019.09.17 @aginard
+		    /*
 			?>
                 <div class="fade updated" style="margin: 4px 0 20px; border-left-color: #ffc107;">
                     <p><b><?php _wsl_e("Breaking changes notice", 'wordpress-social-login') ?>:</b></p>
@@ -196,6 +199,8 @@ function wsl_admin_ui_header( $wslp = null )
 					</p>
 				</div>
 			<?php
+		    */
+		    //************ FI
 		}
 	?>
 
@@ -384,6 +389,10 @@ function wsl_admin_welcome_panel()
 	{
 		$wslp = $_REQUEST["wslp"];
 	}
+// XTEC ************ AFEGIT - Remove welcome panel
+// 2015.09.14 @aginard
+if (is_xtec_super_admin()) {
+//************ FI
 ?>
 <!--
 	if you want to know if a UI was made by developer, then here is a tip: he will always use tables
@@ -440,6 +449,10 @@ function wsl_admin_welcome_panel()
 	</table>
 </div>
 <?php
+// XTEC ************ AFEGIT - Remove welcome panel
+// 2015.09.14 @aginard
+}
+//************ FI
 }
 
 // --------------------------------------------------------------------

@@ -43,7 +43,15 @@ function wsl_component_networks()
 				<td width="10"></td>
 				<td width="400">
 					<?php
+    // XTEC ************ AFEGIT - Remove side boxes
+    // 2014.11.14 @aginard
+    if (is_xtec_super_admin()) {
+        //************ FI
 						wsl_component_networks_sidebar();
+        // XTEC ************ AFEGIT - Remove side boxes
+        // 2014.11.14 @aginard
+    }
+    //************ FI
 					?>
 				</td>
 			</tr>

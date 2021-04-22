@@ -423,14 +423,33 @@ function wsl_process_login_get_user_data( $provider, $redirect_to )
 			}
 		}
 
+                // XTEC ************ ESBORRAT - Check white list if user is not authorized by domain
+                // 2015.09.18 @aginard
+                /*
 		if( ! $shall_pass )
 		{
 			return wsl_process_login_render_notice_page( _wsl__( get_option( 'wsl_settings_bouncer_new_users_restrict_domain_text_bounce' ), 'wordpress-social-login') );
 		}
+                */
+                //************ FI
+
 	}
 
 	// Bouncer::Filters by e-mails addresses
+
+    // XTEC ************ MODIFICAT - Check white list if user is not authorized by domain
+    // 2015.08.25 @jmeler
+    // 2015.09.18 @aginard
+
+    // Bouncer::Filters by e-mails addresses
+    if(( !isset($shall_pass) || !$shall_pass ) )
+    {
+        if( get_option( 'wsl_settings_bouncer_new_users_restrict_email_enabled' ) == 1 )
+            //************ ORIGINAL
+            /*
 	if( get_option( 'wsl_settings_bouncer_new_users_restrict_email_enabled' ) == 1 )
+            */
+            //************ FI
 	{
 		error_log(__METHOD__ . ' start wsl_settings_bouncer_new_users_restrict_email_enabled.');
 		error_log(__METHOD__ . ' hybridauth_user_email is ' . $hybridauth_user_email );
@@ -456,7 +475,47 @@ function wsl_process_login_get_user_data( $provider, $redirect_to )
 		{
 			return wsl_process_login_render_notice_page( _wsl__( get_option( 'wsl_settings_bouncer_new_users_restrict_email_text_bounce' ), 'wordpress-social-login') );
 		}
+
+        // XTEC ************ AFEGIT - Check white list if user is not authorized by domain
+        // 2015.09.18 @aginard
+
+    } else if (get_option( 'wsl_settings_bouncer_new_users_restrict_domain_enabled' ) != 1) {
+        $shall_pass = true;
+    } else {
+        return wsl_process_login_render_notice_page( _wsl__( get_option( 'wsl_settings_bouncer_new_users_restrict_domain_text_bounce' ), 'wordpress-social-login') );
+    }
+    //************ FI
 	}
+
+// XTEC ************ AFEGIT - Email's Blacklist feature
+// 2015.08.25 @jmeler
+// Bouncer::Filters by e-mails addresses (forbidden e-mails)
+if( get_option( 'wsl_settings_bouncer_new_users_restrict_blacklist_enabled' ) == 1 )
+{
+    if( empty( $hybridauth_user_email ) )
+    {
+        return wsl_process_login_render_notice_page( _wsl__( get_option( 'wsl_settings_bouncer_new_users_restrict_blacklist_text_bounce' ), 'wordpress-social-login') );
+    }
+
+    $list = get_option( 'wsl_settings_bouncer_new_users_restrict_blacklist_list' );
+    $list = preg_split( '/$\R?^/m', $list );
+
+    $shall_pass = true;
+
+    foreach( $list as $item )
+    {
+        if( trim( strtolower( $item ) ) == strtolower( $hybridauth_user_email ) )
+        {
+            $shall_pass = false;
+        }
+    }
+
+    if( ! $shall_pass )
+    {
+        return wsl_process_login_render_notice_page( _wsl__( get_option( 'wsl_settings_bouncer_new_users_restrict_blacklist_text_bounce' ), 'wordpress-social-login') );
+    }
+}
+//************ FI
 
 	// Bouncer::Filters by profile urls
 	if( get_option( 'wsl_settings_bouncer_new_users_restrict_profile_enabled' ) == 1 )
@@ -516,6 +575,16 @@ function wsl_process_login_get_user_data( $provider, $redirect_to )
 	/* 5. If Bouncer::Profile Completion is enabled and user didn't exist, we require the user to complete the registration (user name & email) */
 	if( ! $user_id )
 	{
+
+        // XTEC ************ AFEGIT - Fixed behaviour of wsl_settings_bouncer_registration_enabled
+        // 2021.04.22 @aginard
+
+        if ( get_option( 'wsl_settings_bouncer_registration_enabled' ) == 2 ) {
+            return wsl_process_login_render_notice_page( _wsl__( "Registration is now closed.", 'wordpress-social-login' ) );
+        }
+
+        //************ FI
+
 		// Bouncer :: Accept new registrations?
 		if( get_option( 'wsl_settings_bouncer_registration_enabled' ) == 2
 			&& ( get_option( 'wsl_settings_bouncer_authentication_enabled' ) == 2 || get_option( 'wsl_settings_bouncer_accounts_linking_enabled' ) == 2 ) )
@@ -947,6 +1016,14 @@ function wsl_process_login_build_provider_config( $provider )
 	{
 		$config["providers"][$provider]["scope"] = "r_liteprofile r_emailaddress";
 	}
+
+    // XTEC ************ AFEGIT - Added Moodle login provider
+    // 2019.08.05 @nacho
+    // 2019.08.05 @mborraz
+    if (strtolower($provider) == 'moodle') {
+        $config['providers'][$provider]['scope'] = 'user_info';
+    }
+    //************ FI
 
 	$provider_scope = isset( $config["providers"][$provider]["scope"] ) ? $config["providers"][$provider]["scope"] : null ;
 
