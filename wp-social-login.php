@@ -3,7 +3,7 @@
 Plugin Name: WordPress Social Login
 Plugin URI: http://miled.github.io/wordpress-social-login/
 Description: Allow your visitors to comment and login with social networks such as Twitter, Facebook, Google, Yahoo and more.
-Version: 3.0.1
+Version: 3.0.4
 Author: Miled
 Author URI: https://github.com/miled
 License: MIT License
@@ -66,11 +66,15 @@ global $WORDPRESS_SOCIAL_LOGIN_PROVIDERS_CONFIG;
 global $WORDPRESS_SOCIAL_LOGIN_COMPONENTS;
 global $WORDPRESS_SOCIAL_LOGIN_ADMIN_TABS;
 
-$WORDPRESS_SOCIAL_LOGIN_VERSION = "3.0.1";
+$WORDPRESS_SOCIAL_LOGIN_VERSION = "3.0.3";
 
 // --------------------------------------------------------------------
 
-session_id() or session_start();
+/**
+* Initialize PHP sessions
+* see implementation in includes/services/wsl.session.php
+*/
+add_action('init', 'wsl_init_php_session');
 
 // --------------------------------------------------------------------
 
@@ -244,7 +248,7 @@ require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . 'includes/services/wsl.authentic
 require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . 'includes/services/wsl.mail.notification.php' ); // Emails and notifications
 require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . 'includes/services/wsl.user.avatar.php'       ); // Display users avatar
 require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . 'includes/services/wsl.user.data.php'         ); // User data functions (database related)
-require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . 'includes/services/wsl.session.php'           ); // Manage PHP session 
+require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . 'includes/services/wsl.session.php'           ); // Manage PHP session
 require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . 'includes/services/wsl.utilities.php'         ); // Unclassified functions & utilities
 require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . 'includes/services/wsl.watchdog.php'          ); // WSL logging agent
 
@@ -255,7 +259,7 @@ require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . 'includes/widgets/wsl.error.page
 require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . 'includes/widgets/wsl.loading.screens.php'    ); // Generate WSL loading screens
 
 # WSL Admin interfaces
-if( is_admin() && ( !defined( 'DOING_AJAX' ) || !DOING_AJAX ) )
+if( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) )
 {
 	require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . 'includes/admin/wsl.admin.ui.php'         ); // The entry point to WSL Admin interfaces
 }

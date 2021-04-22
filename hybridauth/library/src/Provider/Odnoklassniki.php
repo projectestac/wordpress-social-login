@@ -11,28 +11,9 @@ use Hybridauth\Adapter\OAuth2;
 use Hybridauth\Data;
 use Hybridauth\Exception\UnexpectedApiResponseException;
 use Hybridauth\User;
+
 /**
  * Odnoklassniki OAuth2 provider adapter.
- *
- * Example:
- *
- *   $config = [
- *       'callback'  => Hybridauth\HttpClient\Util::getCurrentUrl(),
- *       'keys'      => ['id' => '', 'key' => '', 'secret' => ''],
- *   ];
-
- *   $adapter = new Hybridauth\Provider\Odnoklassniki($config);
- *
- *   try {
- *       if (!$adapter->isConnected()) {
- *           $adapter->authenticate();
- *       }
- *
- *       $userProfile = $adapter->getUserProfile();
- *   }
- *   catch(\Exception $e) {
- *       print $e->getMessage() ;
- *   }
  */
 class Odnoklassniki extends OAuth2
 {
@@ -50,6 +31,26 @@ class Odnoklassniki extends OAuth2
     * {@inheritdoc}
     */
     protected $accessTokenUrl = 'https://api.ok.ru/oauth/token.do';
+
+    /**
+     * {@inheritdoc}
+     */
+    protected $apiDocumentation = 'https://apiok.ru/en/ext/oauth/';
+
+    /**
+    * {@inheritdoc}
+    */
+    protected function initialize()
+    {
+        parent::initialize();
+
+        if ($this->isRefreshTokenAvailable()) {
+            $this->tokenRefreshParameters += [
+                'client_id' => $this->clientId,
+                'client_secret' => $this->clientSecret
+            ];
+        }
+    }
 
     /**
     * {@inheritdoc}
@@ -95,6 +96,14 @@ class Odnoklassniki extends OAuth2
         $userProfile->displayName = $data->get('name');
         $userProfile->photoURL    = $data->get('pic1024x768');
         $userProfile->profileURL  = 'http://ok.ru/profile/' . $data->get('uid');
+        
+        // Handle birthday.
+        if ($data->get('birthday')) {
+            $bday                    = explode('-', $data->get('birthday'));
+            $userProfile->birthDay   = (int)$bday[0];
+            $userProfile->birthMonth = (int)$bday[1];
+            $userProfile->birthYear  = (int)$bday[2];
+        }
 
         return $userProfile;
     }

@@ -3,7 +3,7 @@
 * WordPress Social Login
 *
 * https://miled.github.io/wordpress-social-login/ | https://github.com/miled/wordpress-social-login
-*   (c) 2011-2018 Mohamed Mrassi and contributors | https://wordpress.org/plugins/wordpress-social-login/
+*   (c) 2011-2020 Mohamed Mrassi and contributors | https://wordpress.org/plugins/wordpress-social-login/
 */
 
 /**
@@ -227,7 +227,8 @@ function wsl_register_setting()
 			{
 				register_setting( 'wsl-settings-group', 'wsl_settings_' . $provider_id . '_app_id' ); 
 			}
-			else
+			
+            if( !$require_client_id || $require_client_id === 'both' )
 			{
 				register_setting( 'wsl-settings-group', 'wsl_settings_' . $provider_id . '_app_key' ); 
 			}

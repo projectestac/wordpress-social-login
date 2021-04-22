@@ -13,14 +13,16 @@ use Hybridauth\Data;
 use Hybridauth\User;
 
 /**
- * Twitter provider adapter.
+ * Twitter OAuth1 provider adapter.
+ * Uses OAuth1 not OAuth2 because many Twitter endpoints are built around OAuth1.
  *
  * Example:
  *
  *   $config = [
  *       'callback'  => Hybridauth\HttpClient\Util::getCurrentUrl(),
  *       'keys'      => [ 'key' => '', 'secret' => '' ], // OAuth1 uses 'key' not 'id'
- *       'authorize' => true
+ *       'authorize' => true // Needed to perform actions on behalf of users (see below link)
+ *         // https://developer.twitter.com/en/docs/authentication/oauth-1-0a/obtaining-user-access-tokens
  *   ];
  *
  *   $adapter = new Hybridauth\Provider\Twitter( $config );
@@ -81,7 +83,9 @@ class Twitter extends OAuth1
      */
     public function getUserProfile()
     {
-        $response = $this->apiRequest('account/verify_credentials.json?include_email=true');
+        $response = $this->apiRequest('account/verify_credentials.json', 'GET', [
+            'include_email' => $this->config->get('include_email') === false ? 'false' : 'true',
+        ]);
 
         $data = new Data\Collection($response);
 
@@ -104,13 +108,15 @@ class Twitter extends OAuth1
                                         ? ('http://twitter.com/' . $data->get('screen_name'))
                                         : '';
 
-        $userProfile->photoURL      = $data->exists('profile_image_url')
-                                        ? str_replace('_normal', '', $data->get('profile_image_url'))
+        $photoSize = $this->config->get('photo_size') ?: 'original';
+        $photoSize = $photoSize === 'original' ? '' : "_{$photoSize}";
+        $userProfile->photoURL      = $data->exists('profile_image_url_https')
+                                        ? str_replace('_normal', $photoSize, $data->get('profile_image_url_https'))
                                         : '';
 
         $userProfile->data = [
-          'followed_by' => $data->get('friends_count'),
-          'follows' => $data->get('followers_count'),
+          'followed_by' => $data->get('followers_count'),
+          'follows' => $data->get('friends_count'),
         ];
 
         return $userProfile;
@@ -160,7 +166,9 @@ class Twitter extends OAuth1
     }
 
     /**
+     * @param $item
      *
+     * @return User\Contact
      */
     protected function fetchUserContact($item)
     {
@@ -231,7 +239,8 @@ class Twitter extends OAuth1
     }
 
     /**
-     *
+     * @param $item
+     * @return User\Activity
      */
     protected function fetchUserActivity($item)
     {

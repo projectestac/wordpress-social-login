@@ -3,7 +3,7 @@
 * WordPress Social Login
 *
 * https://miled.github.io/wordpress-social-login/ | https://github.com/miled/wordpress-social-login
-*   (c) 2011-2018 Mohamed Mrassi and contributors | https://wordpress.org/plugins/wordpress-social-login/
+*   (c) 2011-2020 Mohamed Mrassi and contributors | https://wordpress.org/plugins/wordpress-social-login/
 */
 
 /**
@@ -27,7 +27,7 @@ function wsl_admin_main()
 
 	if ( ! current_user_can('manage_options') )
 	{
-		wp_die( 'You do not have sufficient permissions to access this page.' );
+		wp_die( _wsl__( 'You do not have sufficient permissions to access this page.' , 'wordpress-social-login' ) );
 	}
 
 	if( ! wsl_check_requirements() )
@@ -65,7 +65,6 @@ function wsl_admin_main()
 	}
 
 	$wslp            = "networks";
-	$wsldwp          = 0;
 	$assets_base_url = WORDPRESS_SOCIAL_LOGIN_PLUGIN_URL . 'assets/img/16x16/';
 
 	if( isset( $_REQUEST["wslp"] ) )
@@ -110,6 +109,11 @@ function wsl_admin_ui_header( $wslp = null )
 	GLOBAL $WORDPRESS_SOCIAL_LOGIN_VERSION;
 	GLOBAL $WORDPRESS_SOCIAL_LOGIN_ADMIN_TABS;
 
+    // Dismiss WSL migration notice
+    if( isset( $_REQUEST["wsldmn"] ) && (int) $_REQUEST["wsldmn"] === 1 )
+    {
+        update_option( "wsl_settings_migration_notice_is_read", true );
+    }
 ?>
 <a name="wsltop"></a>
 <div class="wsl-container">
@@ -145,7 +149,7 @@ function wsl_admin_ui_header( $wslp = null )
 			?>
 				<div class="fade error wsl-error-dev-mode-on" style="margin: 4px 0 20px;">
 					<p>
-						<?php _wsl_e('<b>Warning:</b> You are now running WordPress Social Login with DEVELOPMENT MODE enabled. This mode is not intend for live websites as it might raise serious security risks', 'wordpress-social-login') ?>.
+						<?php _wsl_e('<b>Warning:</b> You are now running WordPress Social Login with DEVELOPMENT MODE enabled. This mode is not intended for live websites as it might raise serious security risks', 'wordpress-social-login') ?>.
 					</p>
 					<p>
 						<a class="button-secondary" href="options-general.php?page=wordpress-social-login&wslp=tools#dev-mode"><?php _wsl_e('Change this mode', 'wordpress-social-login') ?></a>
@@ -160,7 +164,7 @@ function wsl_admin_ui_header( $wslp = null )
 			?>
 				<div class="fade updated wsl-error-debug-mode-on" style="margin: 4px 0 20px;">
 					<p>
-						<?php _wsl_e('<b>Note:</b> You are now running WordPress Social Login with DEBUG MODE enabled. This mode is not intend for live websites as it might add to loading time and store unnecessary data on your server', 'wordpress-social-login') ?>.
+						<?php _wsl_e('<b>Note:</b> You are now running WordPress Social Login with DEBUG MODE enabled. This mode is not intended for live websites as it might add to loading time and store unnecessary data on your server', 'wordpress-social-login') ?>.
 					</p>
 					<p>
 						<a class="button-secondary" href="options-general.php?page=wordpress-social-login&wslp=tools#debug-mode"><?php _wsl_e('Change this mode', 'wordpress-social-login') ?></a>
@@ -171,16 +175,24 @@ function wsl_admin_ui_header( $wslp = null )
 			<?php
 		}
 
-		if( true )
+		if( ! get_option( 'wsl_settings_migration_notice_is_read' ) )
 		{
 			?>
-				<div class="fade updated" style="margin: 4px 0 20px; border-left-color: #006a95;">
+                <div class="fade updated" style="margin: 4px 0 20px; border-left-color: #ffc107;">
+                    <p><b><?php _wsl_e("Breaking changes notice", 'wordpress-social-login') ?>:</b></p>
+
+                    <p><?php _wsl_e("In WordPress Social Login 3.0 we have reworked the identity provider's <b>Callback URLs</b>. To make sure the plugin will keep working correctly, you can either create a new application for each enabled provider, or simply update the already created application with the newly generated callback urls:", 'wordpress-social-login') ?></p>
+
+                    <ol>
+                        <li><?php _wsl_e("First, navigate to <b>WSL Settting > Networks</b> tab", 'wordpress-social-login') ?>,</li>
+                        <li><?php _wsl_e("Next, refer to <b>Where do I get this info?</b> section for each enabled provider and copy its new auto generated callback url", 'wordpress-social-login') ?>,</li>
+                        <li><?php _wsl_e("Finally, update that link on the provider developer website", 'wordpress-social-login') ?>.</li>
+                    </ol>
+
+                    <p><?php _wsl_e("It's also important to note that a number of providers are now made obsolete in WSL 3.0, while a few other were added, and cetain providers has changed their requirements", 'wordpress-social-login') ?>.</p>
+
 					<p>
-						<?php _wsl_e("<b>Breaking Changes Notice:</b> In WordPress Social Login 3.0 we have reworked the IDPs <b>Callback URLs</b>. To make sure the plugin will keep working correctly, you can either create a new application for each enabled provider, or simply update the already created application with the newly generated callback urls (First, go to <b>Networks</b> tab, then refer to <b>Where do I get this info?</b> section to copy the new callback url, and finally update that link in the provider developer website). It's also important to note that a number of providers are now made obsolete in WSL 3.0, while a few other were added", 'wordpress-social-login') ?>.
-					</p>
-					<p>
-						<a class="button-secondary" style="background-color: #0085ba; border-color: #006a95 #00648c #00648c; color: #fff;" href="options-general.php?page=wordpress-social-login&wslp=networks&disablemigrationnotice"><?php _wsl_e('Alright', 'wordpress-social-login') ?></a>
-						<a class="button-secondary" href="http://miled.github.io/wordpress-social-login/migrating-to-3.0.html" target="_blank"><?php _wsl_e('Read about the latest update', 'wordpress-social-login') ?></a>
+						<a class="button-secondary" style="background-color: #ffc107; border-color: #e3ab02; color: #fff;min-width: 95px;text-align: center;" href="options-general.php?page=wordpress-social-login&wslp=networks&wsldmn=1"><?php _wsl_e('Okey, dismiss this notice', 'wordpress-social-login') ?></a>
 					</p>
 				</div>
 			<?php
@@ -352,10 +364,9 @@ function wsl_admin_ui_fail()
 */
 function wsl_admin_welcome_panel()
 {
-	if( isset( $_REQUEST["wsldwp"] ) && (int) $_REQUEST["wsldwp"] )
+    // Dissmiss WSL Welcome pannel
+	if( isset( $_REQUEST["wsldwp"] ) && (int) $_REQUEST["wsldwp"] === 1 )
 	{
-		$wsldwp = (int) $_REQUEST["wsldwp"];
-
 		update_option( "wsl_settings_welcome_panel_enabled", wsl_get_version() );
 
 		return;
@@ -412,12 +423,12 @@ function wsl_admin_welcome_panel()
 				</p>
 
 				<ul style="margin-left:25px;">
-					<li><?php _wsl_e('WSL fully migrated to Hybridauth 3', 'wordpress-social-login') ?></li>
-					<li><?php _wsl_e('Reworked providers Callback URLs', 'wordpress-social-login') ?></li>
-					<li><?php _wsl_e('Added new providers: Amazon, Discord and Spotify to name a few', 'wordpress-social-login') ?></li>
-					<li><?php _wsl_e('A number of providers are now defunct', 'wordpress-social-login') ?></li>
-					<li><?php _wsl_e('Obligatory minor improvement', 'wordpress-social-login') ?></li>
-					<li><?php _wsl_e('and whatnot.', 'wordpress-social-login') ?></li>
+					<li><?php _wsl_e('WSL is now fully migrated to Hybridauth 3.5', 'wordpress-social-login') ?></li>
+					<li><?php _wsl_e("Reworked providers Callback URLs and it's a breaking change! See up top notice", 'wordpress-social-login') ?></li>
+					<li><?php _wsl_e('Added serval new providers: Amazon, Discord and Spotify to name a few', 'wordpress-social-login') ?></li>
+					<li><?php _wsl_e('Removal of a number of currently defunct identity providers ', 'wordpress-social-login') ?></li>
+					<li><?php _wsl_e('Authentication widgets and forms design overhall', 'wordpress-social-login') ?></li>
+					<li><?php _wsl_e('Various fixes and improvements', 'wordpress-social-login') ?></li>
 				</ul>
 			</td>
 		</tr>
@@ -489,7 +500,13 @@ function wsl_render_wp_editor( $name, $content )
 */
 function wsl_admin_menu()
 {
-	add_options_page('WP Social Login', 'WP Social Login', 'manage_options', 'wordpress-social-login', 'wsl_admin_main' );
+	add_options_page(
+		_wsl__( 'WP Social Login', 'wordpress-social-login' ),
+		_wsl__( 'WP Social Login', 'wordpress-social-login' ),
+		'manage_options',
+		'wordpress-social-login',
+		'wsl_admin_main'
+	);
 
 	add_action( 'admin_init', 'wsl_register_setting' );
 }

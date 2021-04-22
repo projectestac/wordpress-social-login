@@ -11,6 +11,7 @@ use Hybridauth\Exception\Exception;
 use Hybridauth\Exception\InvalidApplicationCredentialsException;
 use Hybridauth\Exception\InvalidAuthorizationStateException;
 use Hybridauth\Exception\InvalidAuthorizationCodeException;
+use Hybridauth\Exception\AuthorizationDeniedException;
 use Hybridauth\Exception\InvalidAccessTokenException;
 use Hybridauth\Data;
 use Hybridauth\HttpClient;
@@ -126,9 +127,18 @@ abstract class OAuth2 extends AbstractAdapter implements AdapterInterface
     /**
     * Authorization Url Parameters
     *
-    * @var boolean
+    * @var array
     */
     protected $AuthorizeUrlParameters = [];
+
+
+    /**
+     * Authorization Url Parameter encoding type
+     * @see https://www.php.net/manual/de/function.http-build-query.php
+     *
+     * @var string
+     */
+    protected $AuthorizeUrlParametersEncType = PHP_QUERY_RFC1738;
 
     /**
     * Authorization Request State
@@ -194,9 +204,9 @@ abstract class OAuth2 extends AbstractAdapter implements AdapterInterface
     *
     * @see refreshAccessToken()
     *
-    * @var array
+    * @var array|null
     */
-    protected $tokenRefreshParameters = [];
+    protected $tokenRefreshParameters = null;
 
     /**
     * Refresh Token Request HTTP headers.
@@ -274,10 +284,13 @@ abstract class OAuth2 extends AbstractAdapter implements AdapterInterface
             'redirect_uri'  => $this->callback
         ];
 
-        $this->tokenRefreshParameters = [
-            'grant_type'    => 'refresh_token',
-            'refresh_token' => $this->getStoredData('refresh_token'),
-        ];
+        $refreshToken = $this->getStoredData('refresh_token');
+        if (!empty($refreshToken)) {
+            $this->tokenRefreshParameters = [
+                'grant_type'    => 'refresh_token',
+                'refresh_token' => $refreshToken,
+            ];
+        }
 
         $this->apiRequestHeaders = [
             'Authorization' => 'Bearer ' . $this->getStoredData('access_token')
@@ -298,7 +311,7 @@ abstract class OAuth2 extends AbstractAdapter implements AdapterInterface
         try {
             $this->authenticateCheckError();
 
-            $code = filter_input(INPUT_GET, 'code');
+            $code = filter_input($_SERVER['REQUEST_METHOD'] === 'POST' ? INPUT_POST : INPUT_GET, 'code');
 
             if (empty($code)) {
                 $this->authenticateBegin();
@@ -315,6 +328,27 @@ abstract class OAuth2 extends AbstractAdapter implements AdapterInterface
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function isConnected()
+    {
+        if ((bool)$this->getStoredData('access_token')) {
+            return (!$this->hasAccessTokenExpired() || $this->isRefreshTokenAvailable());
+        }
+        return false;
+    }
+
+    /**
+     * If we can use a refresh token, then an expired token does not stop us being connected.
+     *
+     * @return bool
+     */
+    public function isRefreshTokenAvailable()
+    {
+        return is_array($this->tokenRefreshParameters);
+    }
+
+    /**
     * Authorization Request Error Response
     *
     * RFC6749: If the request fails due to a missing, invalid, or mismatching
@@ -322,6 +356,9 @@ abstract class OAuth2 extends AbstractAdapter implements AdapterInterface
     * the authorization server SHOULD inform the resource owner of the error.
     *
     * http://tools.ietf.org/html/rfc6749#section-4.1.2.1
+    *
+    * @throws \Hybridauth\Exception\InvalidAuthorizationCodeException
+    * @throws \Hybridauth\Exception\AuthorizationDeniedException
     */
     protected function authenticateCheckError()
     {
@@ -331,9 +368,13 @@ abstract class OAuth2 extends AbstractAdapter implements AdapterInterface
             $error_description = filter_input(INPUT_GET, 'error_description', FILTER_SANITIZE_SPECIAL_CHARS);
             $error_uri = filter_input(INPUT_GET, 'error_uri', FILTER_SANITIZE_SPECIAL_CHARS);
 
-            throw new InvalidAuthorizationCodeException(
-                sprintf('Provider returned an error: %s %s %s', $error, $error_description, $error_uri)
-            );
+            $collated_error = sprintf('Provider returned an error: %s %s %s', $error, $error_description, $error_uri);
+
+            if ($error == 'access_denied') {
+                throw new AuthorizationDeniedException($collated_error);
+            }
+
+            throw new InvalidAuthorizationCodeException($collated_error);
         }
     }
 
@@ -367,8 +408,8 @@ abstract class OAuth2 extends AbstractAdapter implements AdapterInterface
             [HttpClient\Util::getCurrentUrl(true)]
         );
 
-        $state = filter_input(INPUT_GET, 'state');
-        $code = filter_input(INPUT_GET, 'code');
+        $state = filter_input($_SERVER['REQUEST_METHOD'] === 'POST' ? INPUT_POST : INPUT_GET, 'state');
+        $code = filter_input($_SERVER['REQUEST_METHOD'] === 'POST' ? INPUT_POST : INPUT_GET, 'code');
 
         /**
         * Authorization Request State
@@ -440,7 +481,8 @@ abstract class OAuth2 extends AbstractAdapter implements AdapterInterface
             $this->storeData('authorization_state', $this->AuthorizeUrlParameters['state']);
         }
 
-        return $this->authorizeUrl . '?' . http_build_query($this->AuthorizeUrlParameters, '', '&');
+        $queryParams = http_build_query($this->AuthorizeUrlParameters, '', '&', $this->AuthorizeUrlParametersEncType);
+        return $this->authorizeUrl . '?' . $queryParams;
     }
 
     /**
@@ -522,7 +564,7 @@ abstract class OAuth2 extends AbstractAdapter implements AdapterInterface
 
         if (! $collection->exists('access_token')) {
             throw new InvalidAccessTokenException(
-                'Provider returned an invalid access_token: ' . htmlentities($response)
+                'Provider returned no access_token: ' . htmlentities($response)
             );
         }
 
@@ -566,7 +608,7 @@ abstract class OAuth2 extends AbstractAdapter implements AdapterInterface
     *
     * @param array $parameters
     *
-    * @return string Raw Provider API response
+    * @return string|null Raw Provider API response, or null if we cannot refresh
     * @throws \Hybridauth\Exception\HttpClientFailureException
     * @throws \Hybridauth\Exception\HttpRequestFailedException
     * @throws InvalidAccessTokenException
@@ -576,6 +618,10 @@ abstract class OAuth2 extends AbstractAdapter implements AdapterInterface
         $this->tokenRefreshParameters = !empty($parameters)
             ? $parameters
             : $this->tokenRefreshParameters;
+
+        if (!$this->isRefreshTokenAvailable()) {
+            return null;
+        }
 
         $response = $this->httpClient->request(
             $this->accessTokenUrl,
@@ -594,19 +640,21 @@ abstract class OAuth2 extends AbstractAdapter implements AdapterInterface
     /**
     * Check whether access token has expired
     *
-    * @return string Raw Provider API response
+    * @param int|null $time
+    * @return bool|null
     */
-    public function hasAccessTokenExpired()
+    public function hasAccessTokenExpired($time = null)
     {
-        if (! $this->getStoredData('expires_at')) {
+        if ($time === null) {
+            $time = time();
+        }
+
+        $expires_at = $this->getStoredData('expires_at');
+        if (!$expires_at) {
             return null;
         }
 
-        if ($this->getStoredData('expires_at') <= time()) {
-            return true;
-        }
-
-        return false;
+        return $expires_at <= $time;
     }
 
     /**
@@ -652,13 +700,14 @@ abstract class OAuth2 extends AbstractAdapter implements AdapterInterface
     * @param string $method
     * @param array $parameters
     * @param array $headers
+    * @param bool $multipart
     *
     * @return mixed
     * @throws \Hybridauth\Exception\HttpClientFailureException
     * @throws \Hybridauth\Exception\HttpRequestFailedException
     * @throws InvalidAccessTokenException
     */
-    public function apiRequest($url, $method = 'GET', $parameters = [], $headers = [])
+    public function apiRequest($url, $method = 'GET', $parameters = [], $headers = [], $multipart = false)
     {
         // refresh tokens if needed
         if ($this->hasAccessTokenExpired() === true) {
@@ -676,10 +725,11 @@ abstract class OAuth2 extends AbstractAdapter implements AdapterInterface
             $url,
             $method,     // HTTP Request Method. Defaults to GET.
             $parameters, // Request Parameters
-            $headers     // Request Headers
+            $headers,    // Request Headers
+            $multipart   // Is request multipart
         );
 
-        $this->validateApiResponse('Signed API request has returned an error');
+        $this->validateApiResponse('Signed API request to ' . $url . ' has returned an error');
 
         $response = (new Data\Parser())->parse($response);
 

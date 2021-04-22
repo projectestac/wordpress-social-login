@@ -3,7 +3,7 @@
 * WordPress Social Login
 *
 * https://miled.github.io/wordpress-social-login/ | https://github.com/miled/wordpress-social-login
-*   (c) 2011-2018 Mohamed Mrassi and contributors | https://wordpress.org/plugins/wordpress-social-login/
+*   (c) 2011-2020 Mohamed Mrassi and contributors | https://wordpress.org/plugins/wordpress-social-login/
 */
 
 /**
@@ -68,6 +68,8 @@ $WORDPRESS_SOCIAL_LOGIN_PROVIDERS_CONFIG = ARRAY(
 	ARRAY(
 		"provider_id"       => "LinkedIn",
 		"provider_name"     => "LinkedIn",
+		"require_client_id" => true,
+		"callback"          => true,
 		"new_app_link"      => "https://www.linkedin.com/secure/developer",
 	),
 	ARRAY(
@@ -158,7 +160,7 @@ $WORDPRESS_SOCIAL_LOGIN_PROVIDERS_CONFIG = ARRAY(
 	ARRAY(
 		"provider_id"       => "Odnoklassniki",
 		"provider_name"     => "Odnoklassniki",
-		"require_client_id" => true,
+		"require_client_id" => "both",
 		"callback"          => true,
 		"new_app_link"      => "http://dev.odnoklassniki.ru/",
 	),

@@ -8,7 +8,7 @@
 namespace Hybridauth\HttpClient;
 
 /**
- * HybridAuth Http clients interface
+ * Hybridauth Http clients interface
  */
 interface HttpClientInterface
 {
@@ -21,10 +21,11 @@ interface HttpClientInterface
     * @param string $method
     * @param array  $parameters
     * @param array  $headers
+    * @param bool   $multipart
     *
     * @return mixed
     */
-    public function request($uri, $method = 'GET', $parameters = [], $headers = []);
+    public function request($uri, $method = 'GET', $parameters = [], $headers = [], $multipart = false);
 
     /**
     * Returns raw response from the server on success, FALSE on failure

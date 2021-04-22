@@ -3,7 +3,7 @@
 * WordPress Social Login
 *
 * https://miled.github.io/wordpress-social-login/ | https://github.com/miled/wordpress-social-login
-*   (c) 2011-2018 Mohamed Mrassi and contributors | https://wordpress.org/plugins/wordpress-social-login/
+*   (c) 2011-2020 Mohamed Mrassi and contributors | https://wordpress.org/plugins/wordpress-social-login/
 */
 
 /**
@@ -29,6 +29,7 @@ if ( !defined( 'ABSPATH' ) ) exit;
 function wsl_update_compatibilities()
 {
 	delete_option( 'wsl_settings_development_mode_enabled' );
+	delete_option( 'wsl_settings_migration_notice_is_read' );
 	delete_option( 'wsl_settings_debug_mode_enabled' );
 
 	update_option( 'wsl_settings_welcome_panel_enabled', 1 );
@@ -237,7 +238,7 @@ function wsl_shortcode_handler(){ wsl_deprecated_function( __FUNCTION__, '2.2.3'
 function wsl_render_wsl_widget_in_comment_form(){ wsl_deprecated_function( __FUNCTION__, '2.2.3' ); wsl_action_wordpress_social_login(); }
 function wsl_render_wsl_widget_in_wp_login_form(){ wsl_deprecated_function( __FUNCTION__, '2.2.3' ); wsl_action_wordpress_social_login(); }
 function wsl_render_wsl_widget_in_wp_register_form(){ wsl_deprecated_function( __FUNCTION__, '2.2.3' ); wsl_action_wordpress_social_login(); }
-function wsl_user_custom_avatar($avatar, $mixed, $size, $default, $alt){ wsl_deprecated_function( __FUNCTION__, '2.2.3' ); return wsl_get_wp_user_custom_avatar($html, $mixed, $size, $default, $alt); }
+function wsl_user_custom_avatar($avatar, $mixed, $size, $default, $alt){ wsl_deprecated_function( __FUNCTION__, '2.2.3' ); return wsl_get_wp_user_custom_avatar($avatar, $mixed, $size, $default, $alt); }
 function wsl_bp_user_custom_avatar($html, $args){ wsl_deprecated_function( __FUNCTION__, '2.2.3' ); return wsl_get_bp_user_custom_avatar($html, $args); }
 
 // nag about it

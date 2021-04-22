@@ -3,7 +3,7 @@
 * WordPress Social Login
 *
 * https://miled.github.io/wordpress-social-login/ | https://github.com/miled/wordpress-social-login
-*   (c) 2011-2018 Mohamed Mrassi and contributors | https://wordpress.org/plugins/wordpress-social-login/
+*   (c) 2011-2020 Mohamed Mrassi and contributors | https://wordpress.org/plugins/wordpress-social-login/
 */
 
 /**
@@ -69,13 +69,13 @@ if( ! function_exists( 'wsl_render_redirect_to_provider_loading_screen' ) )
 			}
 		</style>
 		<script>
-			function onLoad()
+			function on_load()
 			{
 				setTimeout(function(){ window.location.replace( window.location.href + "&redirect_to_provider=true" ); }, 250);
 			}
 		</script>
 	</head>
-	<body onload="onLoad();">
+	<body onload="on_load();">
 		<div>
 			<img src="<?php echo $assets_base_url ?>spinner.gif" />
 
@@ -181,7 +181,7 @@ if( ! function_exists( 'wsl_render_return_from_provider_loading_screen' ) )
 	<body onload="onLoad();">
 		<div>
 			<img src="<?php echo $assets_base_url ?>spinner.gif" />
-			
+
 			<h1><?php echo _wsl_e( "Processing, please wait...", 'wordpress-social-login');  ?></h1>
 		</div>
 

@@ -3,7 +3,7 @@
 * WordPress Social Login
 *
 * https://miled.github.io/wordpress-social-login/ | https://github.com/miled/wordpress-social-login
-*   (c) 2011-2018 Mohamed Mrassi and contributors | https://wordpress.org/plugins/wordpress-social-login/
+*   (c) 2011-2020 Mohamed Mrassi and contributors | https://wordpress.org/plugins/wordpress-social-login/
 */
 
 /**
@@ -837,7 +837,7 @@ function wsl_process_login_authenticate_wp_user( $user_id, $provider, $redirect_
 
 			// send a new e-mail/activation notification - if TML not enabled, we ensure WSL to keep it quiet
 			$errors = new WP_Error();
-			do_action( 'register_post', $wp_user->user_nicename, $wp_user->$user_email, $errors );
+			do_action( 'register_post', $wp_user->user_nicename, $wp_user->user_email, $errors );
 			@ Theme_My_Login_User_Moderation::new_user_activation_notification( $user_id );
 		}
 
@@ -942,10 +942,21 @@ function wsl_process_login_build_provider_config( $provider )
 		$config["providers"][$provider]["scope"] = "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email";
 	}
 
-	$provider_scope = isset( $config["providers"][$provider]["scope"] ) ? $config["providers"][$provider]["scope"] : '' ;
+	// set custom config for linkedin
+	if( strtolower( $provider ) == "linkedin" )
+	{
+		$config["providers"][$provider]["scope"] = "r_liteprofile r_emailaddress";
+	}
+
+	$provider_scope = isset( $config["providers"][$provider]["scope"] ) ? $config["providers"][$provider]["scope"] : null ;
 
 	// HOOKABLE: allow to overwrite scopes
-	$config["providers"][$provider]["scope"] = apply_filters( 'wsl_hook_alter_provider_scope', $provider_scope, $provider );
+    $provider_scope = apply_filters( 'wsl_hook_alter_provider_scope', $provider_scope, $provider );
+
+    // XXX: Scope needs to be diffrent than null.
+    if($provider_scope !== null){
+        $config["providers"][$provider]["scope"] = $provider_scope;
+    }
 
 	// HOOKABLE: allow to overwrite hybridauth config for the selected provider
 	$config["providers"][$provider] = apply_filters( 'wsl_hook_alter_provider_config', $config["providers"][$provider], $provider );
@@ -1039,12 +1050,6 @@ function wsl_process_login_get_redirect_to()
 	if( isset( $_REQUEST[ 'redirect_to' ] ) && $_REQUEST[ 'redirect_to' ] != '' )
 	{
 		$redirect_to = $_REQUEST[ 'redirect_to' ];
-
-		// Redirect to https if user wants ssl
-		if( isset( $secure_cookie ) && $secure_cookie && false !== strpos( $redirect_to, 'wp-admin') )
-		{
-			$redirect_to = preg_replace( '|^http://|', 'https://', $redirect_to );
-		}
 
 		// we don't go there..
 		if( strpos( $redirect_to, 'wp-admin') )
@@ -1143,8 +1148,6 @@ function wsl_process_login_get_auth_mode()
 function wsl_process_login_clear_user_php_session()
 {
 	$_SESSION["HYBRIDAUTH::STORAGE"] = array(); // used by hybridauth library. to clear as soon as the auth process ends.
-	$_SESSION["HA::STORE"]           = array(); // used by hybridauth library. to clear as soon as the auth process ends.
-	$_SESSION["HA::CONFIG"]          = array(); // used by hybridauth library. to clear as soon as the auth process ends.
 	$_SESSION["wsl::userprofile"]    = array(); // used by wsl to temporarily store the user profile so we don't make unnecessary calls to social apis.
 }
 

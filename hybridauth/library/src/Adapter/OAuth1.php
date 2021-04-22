@@ -96,6 +96,13 @@ abstract class OAuth1 extends AbstractAdapter implements AdapterInterface
     protected $consumerToken = null;
 
     /**
+    * Authorization Url Parameters
+    *
+    * @var boolean
+    */
+    protected $AuthorizeUrlParameters = [];
+
+    /**
     * @var string
     */
     protected $requestTokenMethod = 'POST';
@@ -208,9 +215,14 @@ abstract class OAuth1 extends AbstractAdapter implements AdapterInterface
         }
 
         try {
-            if (! $this->getStoredData('request_token')) {
+            if (!$this->getStoredData('request_token')) {
+                // Start a new flow.
                 $this->authenticateBegin();
-            } elseif (! $this->getStoredData('access_token')) {
+            } elseif (empty($_GET['oauth_token']) && empty($_GET['denied'])) {
+                // A previous authentication was not finished, and this request is not finishing it.
+                $this->authenticateBegin();
+            } else {
+                // Finish a flow.
                 $this->authenticateFinish();
             }
         } catch (Exception $exception) {
@@ -220,6 +232,14 @@ abstract class OAuth1 extends AbstractAdapter implements AdapterInterface
         }
 
         return null;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isConnected()
+    {
+        return (bool)$this->getStoredData('access_token');
     }
 
     /**
@@ -271,7 +291,7 @@ abstract class OAuth1 extends AbstractAdapter implements AdapterInterface
 
         if ($oauth_problem) {
             throw new InvalidOauthTokenException(
-                'Provider returned an invalid oauth_token. oauth_problem: ' . htmlentities($oauth_problem)
+                'Provider returned an error. oauth_problem: ' . htmlentities($oauth_problem)
             );
         }
 
@@ -297,13 +317,16 @@ abstract class OAuth1 extends AbstractAdapter implements AdapterInterface
     */
     protected function getAuthorizeUrl($parameters = [])
     {
-        $defaults = [
-            'oauth_token' => $this->getStoredData('request_token')
-        ];
+        $this->AuthorizeUrlParameters = !empty($parameters)
+                    ? $parameters
+                    : array_replace(
+                        (array) $this->AuthorizeUrlParameters,
+                        (array) $this->config->get('authorize_url_parameters')
+                    );
 
-        $parameters = array_replace($defaults, (array)$parameters);
+        $this->AuthorizeUrlParameters['oauth_token'] = $this->getStoredData('request_token');
 
-        return $this->authorizeUrl . '?' . http_build_query($parameters, '', '&');
+        return $this->authorizeUrl . '?' . http_build_query($this->AuthorizeUrlParameters, '', '&');
     }
 
     /**
@@ -387,7 +410,7 @@ abstract class OAuth1 extends AbstractAdapter implements AdapterInterface
 
         if (! $collection->exists('oauth_token')) {
             throw new InvalidOauthTokenException(
-                'Provider returned an invalid access_token: ' . htmlentities($response)
+                'Provider returned no oauth_token: ' . htmlentities($response)
             );
         }
 
@@ -485,7 +508,7 @@ abstract class OAuth1 extends AbstractAdapter implements AdapterInterface
 
         if (! $collection->exists('oauth_token')) {
             throw new InvalidAccessTokenException(
-                'Provider returned an invalid access_token: ' . htmlentities($response)
+                'Provider returned no access_token: ' . htmlentities($response)
             );
         }
 
@@ -513,12 +536,13 @@ abstract class OAuth1 extends AbstractAdapter implements AdapterInterface
     * @param string $method
     * @param array $parameters
     * @param array $headers
+    * @param bool $multipart
     *
     * @return mixed
     * @throws \Hybridauth\Exception\HttpClientFailureException
     * @throws \Hybridauth\Exception\HttpRequestFailedException
     */
-    public function apiRequest($url, $method = 'GET', $parameters = [], $headers = [])
+    public function apiRequest($url, $method = 'GET', $parameters = [], $headers = [], $multipart = false)
     {
         if (strrpos($url, 'http://') !== 0 && strrpos($url, 'https://') !== 0) {
             $url = rtrim($this->apiBaseUrl, '/') . '/' . ltrim($url, '/');
@@ -528,7 +552,7 @@ abstract class OAuth1 extends AbstractAdapter implements AdapterInterface
 
         $headers = array_replace($this->apiRequestHeaders, (array)$headers);
 
-        $response = $this->oauthRequest($url, $method, $parameters, $headers);
+        $response = $this->oauthRequest($url, $method, $parameters, $headers, $multipart);
 
         $response = (new Data\Parser())->parse($response);
 
@@ -544,19 +568,25 @@ abstract class OAuth1 extends AbstractAdapter implements AdapterInterface
     * @param string $method
     * @param array $parameters
     * @param array $headers
+    * @param bool $multipart
     *
     * @return string Raw Provider API response
     * @throws \Hybridauth\Exception\HttpClientFailureException
     * @throws \Hybridauth\Exception\HttpRequestFailedException
     */
-    protected function oauthRequest($uri, $method = 'GET', $parameters = [], $headers = [])
+    protected function oauthRequest($uri, $method = 'GET', $parameters = [], $headers = [], $multipart = false)
     {
+        $signing_parameters = $parameters;
+        if ($multipart) {
+            $signing_parameters = [];
+        }
+
         $request = OAuthRequest::from_consumer_and_token(
             $this->OAuthConsumer,
             $this->consumerToken,
             $method,
             $uri,
-            $parameters
+            $signing_parameters
         );
 
         $request->sign_request(
@@ -566,17 +596,17 @@ abstract class OAuth1 extends AbstractAdapter implements AdapterInterface
         );
 
         $uri        = $request->get_normalized_http_url();
-        $parameters = $request->parameters;
         $headers    = array_replace($request->to_header(), (array) $headers);
 
         $response = $this->httpClient->request(
             $uri,
             $method,
             $parameters,
-            $headers
+            $headers,
+            $multipart
         );
 
-        $this->validateApiResponse('Signed API request has returned an error');
+        $this->validateApiResponse('Signed API request to ' . $uri . ' has returned an error');
 
         return $response;
     }

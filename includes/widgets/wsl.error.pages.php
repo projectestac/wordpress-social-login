@@ -3,7 +3,7 @@
 * WordPress Social Login
 *
 * https://miled.github.io/wordpress-social-login/ | https://github.com/miled/wordpress-social-login
-*   (c) 2011-2018 Mohamed Mrassi and contributors | https://wordpress.org/plugins/wordpress-social-login/
+*   (c) 2011-2020 Mohamed Mrassi and contributors | https://wordpress.org/plugins/wordpress-social-login/
 */
 
 /**
@@ -157,30 +157,28 @@ if( ! function_exists( 'wsl_render_error_page' ) )
 
 			<h1><?php _wsl_e("We're unable to complete your request", 'wordpress-social-login') ?>!</h1>
 
-			<?php 
-				if(! empty($message) ){ 
+			<?php
+				if(! empty($message) ){
 					?>
 						<p><?php echo $message; ?></p>
-					<?php 
+					<?php
 				}
 			?>
 
-			<?php 
-				if(! empty($api_error) ){ 
+			<?php
+				if(! empty($api_error) ){
 					?>
-						<p id="technical-details-btn"><a href="javascript:showTechnicals()">Show technical details</a></p>
+						<p id="technical-details-btn"><a href="javascript:show_technical_details();">Show technical details</a></p>
 
 						<p id="technical-details-message"><code><?php echo htmlentities($api_error); ?></code></p>
 
 						<script>
-							function showTechnicals(){
+							function show_technical_details(){
 								document.getElementById('technical-details-btn').style.display = 'none';
 								document.getElementById('technical-details-message').style.display = 'block';
-
-								return false;
 							}
 						</script>
-					<?php 
+					<?php
 				}
 			?>
 
@@ -194,7 +192,25 @@ if( ! function_exists( 'wsl_render_error_page' ) )
 				}
 			?>
 
-			<p><a href="<?php echo home_url(); ?>">&xlarr; <?php _wsl_e("Back to home", 'wordpress-social-login') ?></a></p>
+			<p>
+				<?php
+					// get Widget::Authentication display
+					$wsl_settings_use_popup = get_option( 'wsl_settings_use_popup' );
+
+					if( $wsl_settings_use_popup == 1 )
+					{
+				?>
+					<a href="javascript:window.close();"><?php _wsl_e("Close window", 'wordpress-social-login') ?></a>
+				<?php
+					}
+					else
+					{
+				?>
+					<a href="<?php echo home_url(); ?>">&xlarr; <?php _wsl_e("Back to home", 'wordpress-social-login') ?></a>
+				<?php
+					}
+				?>
+			</p>
 		</div>
 
 		<?php

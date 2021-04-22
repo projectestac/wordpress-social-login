@@ -3,7 +3,7 @@
 * WordPress Social Login
 *
 * https://miled.github.io/wordpress-social-login/ | https://github.com/miled/wordpress-social-login
-*   (c) 2011-2018 Mohamed Mrassi and contributors | https://wordpress.org/plugins/wordpress-social-login/
+*   (c) 2011-2020 Mohamed Mrassi and contributors | https://wordpress.org/plugins/wordpress-social-login/
 */
 
 /**
@@ -116,7 +116,7 @@ function wsl_process_login_new_users_gateway( $provider, $redirect_to, $hybridau
 		if( is_wp_error( $user ) )
 		{
 			// we give no useful hint.
-			$account_linking_errors[] = 
+			$account_linking_errors[] =
 								sprintf(
 										_wsl__(
 												'<strong>ERROR</strong>: Invalid username or incorrect password. <a href="%s">Lost your password</a>?',
@@ -191,11 +191,6 @@ function wsl_process_login_new_users_gateway( $provider, $redirect_to, $hybridau
 					$profile_completion_errors[] = _wsl__( '<strong>ERROR</strong>: Username must be at least 4 characters.', 'wordpress-social-login' );
 				}
 
-				if ( strpos( ' ' . $requested_user_login, '_' ) != false )
-				{
-					// $profile_completion_errors[] = _wsl__( '<strong>ERROR</strong>: Sorry, usernames may not contain the character &#8220;_&#8221;!', 'wordpress-social-login' );
-				}
-
 				if ( preg_match( '/^[0-9]*$/', $requested_user_login ) )
 				{
 					$profile_completion_errors[] = _wsl__( '<strong>ERROR</strong>: Sorry, usernames must have letters too!', 'wordpress-social-login' );
@@ -262,7 +257,7 @@ function wsl_process_login_new_users_gateway( $provider, $redirect_to, $hybridau
 			}
 			h4 {
 				font-size: 14px;
-				margin-bottom: 10px; 
+				margin-bottom: 10px;
 			}
 			#login {
 				max-width: 620px;
@@ -440,7 +435,7 @@ function wsl_process_login_new_users_gateway( $provider, $redirect_to, $hybridau
 		</style>
 		<script>
 			// good old time
-			function toggleEl( el, display )
+			function toggle_el( el, display )
 			{
 				if( el = document.getElementById( el ) )
 				{
@@ -460,42 +455,42 @@ function wsl_process_login_new_users_gateway( $provider, $redirect_to, $hybridau
 			{
 				toggleWidth( 'login', '616px' );
 
-				toggleEl( 'welcome'        , 'block' );
-				toggleEl( 'mapping-options', 'block' );
+				toggle_el( 'welcome'        , 'block' );
+				toggle_el( 'mapping-options', 'block' );
 
-				toggleEl( 'errors-profile-completion', 'none' );
-				toggleEl( 'mapping-authenticate'     , 'none' );
+				toggle_el( 'errors-profile-completion', 'none' );
+				toggle_el( 'mapping-authenticate'     , 'none' );
 
-				toggleEl( 'errors-account-linking', 'none' );
-				toggleEl( 'mapping-complete-info' , 'none' );
+				toggle_el( 'errors-account-linking', 'none' );
+				toggle_el( 'mapping-complete-info' , 'none' );
 			}
 
 			function display_mapping_authenticate()
 			{
                 toggleWidth( 'login', 'auto' );
-                
-				toggleEl( 'welcome'        , 'none' );
-				toggleEl( 'mapping-options', 'none' );
 
-				toggleEl( 'errors-account-linking', 'none' );
-				toggleEl( 'mapping-authenticate'  , 'block' );
+				toggle_el( 'welcome'        , 'none' );
+				toggle_el( 'mapping-options', 'none' );
 
-				toggleEl( 'errors-profile-completion', 'none' );
-				toggleEl( 'mapping-complete-info'    ,'none' );
+				toggle_el( 'errors-account-linking', 'none' );
+				toggle_el( 'mapping-authenticate'  , 'block' );
+
+				toggle_el( 'errors-profile-completion', 'none' );
+				toggle_el( 'mapping-complete-info'    ,'none' );
 			}
 
 			function display_mapping_complete_info()
 			{
                 toggleWidth( 'login', 'auto' );
-                
-				toggleEl( 'welcome'        , 'none' );
-				toggleEl( 'mapping-options', 'none' );
 
-				toggleEl( 'errors-account-linking', 'none' );
-				toggleEl( 'mapping-authenticate'  , 'none' );
+				toggle_el( 'welcome'        , 'none' );
+				toggle_el( 'mapping-options', 'none' );
 
-				toggleEl( 'errors-profile-completion', 'none' );
-				toggleEl( 'mapping-complete-info'    , 'block' );
+				toggle_el( 'errors-account-linking', 'none' );
+				toggle_el( 'mapping-authenticate'  , 'none' );
+
+				toggle_el( 'errors-profile-completion', 'none' );
+				toggle_el( 'mapping-complete-info'    , 'block' );
 			}
 		</script>
 	</head>
@@ -551,7 +546,7 @@ function wsl_process_login_new_users_gateway( $provider, $redirect_to, $hybridau
 				</table>
 
 				<?php
-					if( $account_linking_errors )
+					if( ! empty($account_linking_errors) )
 					{
 						echo '<div id="errors-account-linking" class="error">';
 
@@ -613,7 +608,7 @@ function wsl_process_login_new_users_gateway( $provider, $redirect_to, $hybridau
 						<input type="hidden" id="action" name="action" value="wordpress_social_account_linking">
 						<input type="hidden" id="bouncer_account_linking" name="bouncer_account_linking" value="1">
 					</form>
-                    
+
 				<?php endif; ?>
 
 				<?php if( $registration_enabled == 1 ): ?>
@@ -675,7 +670,7 @@ function wsl_process_login_new_users_gateway( $provider, $redirect_to, $hybridau
 						<input type="hidden" id="action" name="action" value="wordpress_social_account_linking">
 						<input type="hidden" id="bouncer_profile_completion" name="bouncer_profile_completion" value="1">
 					</form>
-                    
+
 				<?php endif; ?>
             </div>
 
