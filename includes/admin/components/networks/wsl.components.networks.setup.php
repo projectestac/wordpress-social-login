@@ -317,7 +317,7 @@ function wsl_component_networks_setup()
                 <p>Per fer que els usuaris del Moodle puguin entrar a aquest espai automàticament, visiteu <a href="<?php echo $help_moodle?>" target="_blank">aquesta pàgina</a> i seguiu les instruccions.</p><p>La primera vegada que un usuari/ària del Moodle entri, se li crearà automàticament un compte a aquest espai en cas que no en tingui.</p>
             </div>
         <?php endif; if ($provider_id == 'Google') : ?>
-            <?php $help_google= ($isAgora) ? 'https://ateneu.xtec.cat/wikiform/wikiexport/cmd/tac/agora-nodes/usuaris/validacio/google':'https://sites.google.com/a/xtec.cat/ajudaxtecblocs/usuaris/configuracio-d-acces-a-xtecblocs-amb-usuaris-de-google'; ?>
+            <?php $help_google= ($isAgora) ? 'https://projectes.xtec.cat/digital/serveis-digitals/nodes/wp-social-login/iniciar-sessio-amb-google/':'https://sites.google.com/a/xtec.cat/ajudaxtecblocs/usuaris/configuracio-d-acces-a-xtecblocs-amb-usuaris-de-google'; ?>
             <div
                 class="wsl_div_settings_help_<?php echo $provider_id; ?>"
                 style="<?php if( isset( $_REQUEST["enable"] ) && ! isset( $_REQUEST["settings-updated"] ) && $_REQUEST["enable"] == $provider_id ) echo "-"; // <= lolz ?>display:none;">
